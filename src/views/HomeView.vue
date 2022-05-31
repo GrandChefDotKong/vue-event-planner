@@ -1,11 +1,12 @@
 <template>
-  <Calendar />
+  <Calendar :events="docs"/>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import getCollection from "@/composables/getCollection";
 import Calendar from '@/components/Calendar.vue';
+import { onUpdated } from "vue";
+  
+  const { docs } = getCollection('events');
 
-
-const date = ref(new Date());
 </script>

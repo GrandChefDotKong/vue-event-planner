@@ -1,18 +1,24 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore, Timestamp } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5LfQ-jF4nT4HZYX7GFkw0IsTXxTzEH6c",
-  authDomain: "vue-terminal-13cdb.firebaseapp.com",
-  projectId: "vue-terminal-13cdb",
-  storageBucket: "vue-terminal-13cdb.appspot.com",
-  messagingSenderId: "543562584593",
-  appId: "1:543562584593:web:a3a6c2bdd0ae7c255c97b0"
+  apiKey: "AIzaSyB3rwHCSCk6BAM35N2gEuZ7rPG1ltcRKNI",
+  authDomain: "vue-event-planner-d74c8.firebaseapp.com",
+  projectId: "vue-event-planner-d74c8",
+  storageBucket: "vue-event-planner-d74c8.appspot.com",
+  messagingSenderId: "370568373374",
+  appId: "1:370568373374:web:4500d37e31da0b15d2e42f"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const projectStore = getFirestore(app);
 const projectAuth = getAuth(app);
+const projectStorage = getStorage(app);
 
-export { projectAuth };
+const timestamp = Timestamp;
+
+export { projectStore, projectAuth, projectStorage, timestamp };

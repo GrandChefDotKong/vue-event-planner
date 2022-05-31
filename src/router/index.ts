@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue';
 import SigninView from '../views/auth/SigninView.vue';
 import SignupView from '../views/auth/SignupView.vue';
 
+import CreateEventView from '../views/CreateEventView.vue';
+
 import { projectAuth } from '@/firebase/config';
 
 
@@ -32,6 +34,12 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
+  },
+  {
+    path: '/event/create',
+    name: 'create-event',
+    component: CreateEventView,
+    beforeEnter: requireAuth
   },
 ]
 
