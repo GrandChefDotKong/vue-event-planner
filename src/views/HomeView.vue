@@ -1,5 +1,7 @@
 <template>
-  <Calendar :events="docs"/>
+  <div v-if="docs">
+    <Calendar :events="docs"/>
+  </div>
 </template>
 
 <script setup lang="ts">

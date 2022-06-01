@@ -3,7 +3,7 @@ interface Event {
     title: string,
     description: string,
     location: string,
-    date: Date,
+    dates: Date,
     creatorId: string,
     creatorName: string,
     participants: string[],

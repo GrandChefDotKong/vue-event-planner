@@ -1,24 +1,24 @@
 <template>
-  <div class="text-center section">
-    <h2 class="h2">Event Calendar</h2>
+  <div v-if="events.length" class="text-center section">
+    <h2 class="h2">Upcoming Event</h2>
     <v-calendar
       class="custom-calendar max-w-full"
-      :masks="{ weekdays: 'WWW' }"
-      :attributes="events"
+      :masks="masks"
+      :attributes="propsToAttributes"
       disable-page-swipe
       is-expanded
     >
-      <template v-slot:day-content="{ day, events }">
+      <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
           <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
-            <p
-              v-for="doc in events"
-              :key="doc.id"
+            <div
+              v-for="attr in attributes"
+              :key="attr.key"
               class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
             >
-              {{ doc.title }}
-            </p>
+              <router-link :to="{ name: 'event-details', params: { id: attr.customData.id } }">{{ attr.customData.title }}</router-link>
+            </div>
           </div>
         </div>
       </template>
@@ -26,9 +26,32 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import Event from "@/interface/Event"
-const { events } = defineProps<{ events: Event[] }>();
+<script>
+export default {
+  props: ['events'],
+  data() {
+    return {
+      masks: {
+        weekdays: 'WWW',
+      },
+    };
+  },
+  computed: {
+    propsToAttributes() {
+      let attributes = []
+      this.events.forEach(event => {
+        console.log(event.dates.toDate());
+        attributes.push({
+          key: event.id,
+          customData: event,
+          dates: event.dates.toDate()
+        })        
+      });
+
+      return attributes;
+    }
+  }
+};
 </script>
 
 <style lang="postcss" scoped>

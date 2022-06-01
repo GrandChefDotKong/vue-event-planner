@@ -1,10 +1,11 @@
 import { ref, watchEffect } from 'vue';
 import { projectStore } from '../firebase/config';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
+import Event from '@/interface/Event';
 
 const getDocument = (collectionName: string, id: string) => {
 
-    const document = ref<Object | null>(null);
+    const document = ref<Event | null>(null);
     const error = ref<string | null>(null);
 
     const docRef = doc(collection(projectStore, collectionName), id); 
@@ -17,7 +18,7 @@ const getDocument = (collectionName: string, id: string) => {
             return;
         }
 
-        document.value = { ...snap.data(), id: snap.id };
+        document.value = { ...snap.data(), id: snap.id } as Event;
         error.value = null;
 
       }, (err) => {

@@ -1,11 +1,10 @@
 <template>
-    <h3 v-if="date">{{ date.toUTCString() }}</h3>
   <form @submit.prevent="handleSubmit">
       <h4>Create New Event</h4>
       <input type="text" placeholder="Event Title" v-model="title" required>
       <textarea placeholder="Event Description" v-model="description" required></textarea>
       <input type="text" placeholder="Event Location" v-model="location" required>
-      <v-date-picker v-model="date" mode="dateTime" timezone="" /><br>
+      <v-date-picker v-model="dates" mode="dateTime" timezone="" /><br>
     <!--
       <label>Upload event image</label>
       <input type="file" @change="handleChange" required>
@@ -18,22 +17,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import useStorage from '@/composables/useStorage';
+//import useStorage from '@/composables/useStorage';
 import useCollection from '@/composables/useCollection';
 import getUser from '@/composables/auth/getUser';
-import { timestamp } from '@/firebase/config';
 import { useRouter } from 'vue-router';
 
     const title = ref('');
     const description = ref('');
     const file = ref(null);
     const fileError = ref<string | null>(null);
-    const date = ref<Date>(new Date());
+    const dates = ref<Date>(new Date());
     const location = ref<string>('');
 
     const router = useRouter();
 
-    const { uploadImage, url, filePath } = useStorage();
+    //const { uploadImage, url, filePath } = useStorage();
     const { error, addToCollection } = useCollection('events');
     const { user } = getUser();
     const isPending = ref(false);
@@ -64,7 +62,7 @@ import { useRouter } from 'vue-router';
             participants: [],
             creatorId: user.value.uid,
             creatorName: user.value.displayName,
-            date: date.value,
+            dates: dates.value,
         });
 
         isPending.value = false;
