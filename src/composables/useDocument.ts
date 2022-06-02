@@ -16,11 +16,11 @@ const useDocument = (collectionName: string, id: string) => {
         error.value = null;
 
         try {
-            const res = await updateDoc(docRef, updatedDocument);
+          const res = await updateDoc(docRef, updatedDocument);
             
         } catch (err: any) {
-            console.log(err.message);
-            error.value = "Could not add the song :/";
+          console.log(err.message);
+          error.value = "Could not add the song :/";
         }
     }
 

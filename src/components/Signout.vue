@@ -18,6 +18,7 @@ export default defineComponent ({
 
     const handleSignout = async () => {
       await signout();
+      
       if(!error.value) {
         user.value = null;
       }

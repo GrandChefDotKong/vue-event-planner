@@ -33,7 +33,6 @@ const handleSignout = async () => {
     await signout();
     if(!error.value) {
         user.value = null;
-        console.log("successfully sign out !");
         router.push({ name: 'signin' });
     }
 }

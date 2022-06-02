@@ -43,10 +43,7 @@ import { computed, Ref } from 'vue';
   const addParticipant = async () => {
     if(!user.value?.displayName || !event.value) return;
 
-    if(isParticipating.value){ 
-      console.log('is participating')
-      return;
-    }
+    if(isParticipating.value) return;
 
       await updateDocument({ 
         participants: [...event.value.participants, user.value.displayName]

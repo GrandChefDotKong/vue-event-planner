@@ -68,10 +68,16 @@ import { useRouter } from 'vue-router';
 
         isPending.value = false;
         if(!error.value) {
-          console.log(`event created !!`);
 
-          console.log(res)
-
+          addToChats({
+            messages: [{
+              createdAt: new Date(),
+              message: 'Welcome to the chat',
+              userId: user.value.uid,
+              userName: user.value.displayName,
+            }],
+          }, res.id)
+          
           router.push({ name: 'home'});
 
         } else {

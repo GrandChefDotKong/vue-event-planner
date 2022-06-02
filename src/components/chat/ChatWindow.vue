@@ -1,7 +1,7 @@
 <template>
   <div class="chat-window">
       <div v-if="document" class="messages" ref="messages">
-        <div v-for="doc in formatedDoc" class="single"> <!--:key=""-->
+        <div v-for="doc in formatedDoc" :key="formatedDoc?.indexOf(doc)" class="single"> <!--:key=""-->
           <span class="created-at">{{ doc.createdAt }}</span>
           <span class="name">{{ doc.userName }}</span>
           <span class="message">{{ doc.message }}</span>

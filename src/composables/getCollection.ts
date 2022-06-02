@@ -23,9 +23,8 @@ const getCollection = (collectionName: string, request?: string[]) => {
         snap.forEach((doc) => {
           results.push({ ...doc.data(), id: doc.id } as Object);
         });
+        
         docs.value = results;
-        console.log(docs.value)
-
         error.value = null;
 
       }, (err) => {

@@ -23,8 +23,7 @@ const router = useRouter();
 const handleSubmit = async () => {
     const res = await signin(email.value, password.value);
     if(!error.value) {
-        console.log('successfully signed in ;)');
-        router.push({ name: 'home' });
+      router.push({ name: 'home' });
     }
 }
 </script>

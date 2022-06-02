@@ -14,8 +14,8 @@ const getDocument = (collectionName: string, id: string) => {
       (snap) => {
 
         if(!snap.data()) {
-            error.value = 'That document does not exist :/';
-            return;
+          error.value = 'That document does not exist :/';
+          return;
         }
 
         document.value = { ...snap.data(), id: snap.id };
