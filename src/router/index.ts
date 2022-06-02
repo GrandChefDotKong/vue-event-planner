@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
+// Auth
 import SigninView from '../views/auth/SigninView.vue';
 import SignupView from '../views/auth/SignupView.vue';
-
+// Event
 import CreateEventView from '../views/event/CreateEventView.vue';
 import EventDetails from '../views/event/EventDisplay.vue';
+import UserEvents from '../views/event/UserEvents.vue';
 
 import { projectAuth } from '@/firebase/config';
 
@@ -46,6 +48,13 @@ const routes = [
     path: '/event/:id',
     name: 'event-details',
     component: EventDetails,
+    beforeEnter: requireAuth,
+    props: true,
+  },
+  {
+    path: '/user/:id',
+    name: 'user-events',
+    component: UserEvents,
     beforeEnter: requireAuth,
     props: true,
   },

@@ -1,6 +1,8 @@
 import { projectStore } from '../firebase/config';
 import { ref } from 'vue';
 import { collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import Event from '@/interface/Event';
+
 
 const useDocument = (collectionName: string, id: string) => {
     const error = ref<string | null>(null);
@@ -15,8 +17,6 @@ const useDocument = (collectionName: string, id: string) => {
 
         try {
             const res = await updateDoc(docRef, updatedDocument);
-
-            console.log('success')
             
         } catch (err: any) {
             console.log(err.message);

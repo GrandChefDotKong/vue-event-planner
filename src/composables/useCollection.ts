@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { projectStore } from '../firebase/config';
 import Event from "@/interface/Event";
 
@@ -8,15 +8,20 @@ const useCollection = (collectionName: string) => {
     const error = ref<string | null>(null);
     const isPending = ref(false);
 
-    const addToCollection = async (docData: Event) => {
+    const addToCollection = async (docData: Object, id?: string) => {
       error.value = null;
       isPending.value = true;
       try {
-        const res = await addDoc(collection(projectStore, collectionName), docData);
+        let res;
+
+        if(id) {
+          res = await setDoc(doc(projectStore, collectionName, id), docData);
+          
+        } else {
+          res = await addDoc(collection(projectStore, collectionName), docData);
+        }
 
         isPending.value = false;
-        console.log(res.id);
-
         return res;
 
       } catch (err: any) {

@@ -5,7 +5,9 @@
       <h1><router-link :to="{ name: 'home' }">Home</router-link></h1>
       <div class="links">
         <div v-if="user">
-          <router-link :to="{}">{{ user.displayName }} Event</router-link>
+          <router-link :to="{ name: 'user-events', params: { id: user.uid } }">
+            {{ user.displayName }} Event
+          </router-link>
           <router-link :to="{ name: 'create-event' }">Create Event</router-link>
           <button v-if="!isPending" @click="handleSignout">Sign Out</button>
           <button v-else disabled>Loading</button>

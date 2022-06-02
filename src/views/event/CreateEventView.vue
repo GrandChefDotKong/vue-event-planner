@@ -32,7 +32,8 @@ import { useRouter } from 'vue-router';
     const router = useRouter();
 
     //const { uploadImage, url, filePath } = useStorage();
-    const { error, addToCollection } = useCollection('events');
+    const { error, addToCollection: addToEvent } = useCollection('events');
+    const { addToCollection: addToChats } = useCollection('chats');
     const { user } = getUser();
     const isPending = ref(false);
 
@@ -52,24 +53,26 @@ import { useRouter } from 'vue-router';
     /*
         await uploadImage(file.value);
     */  
-        const res: any =  await addToCollection({
+        const res: any =  await addToEvent({
             id: '',
             title: title.value,
             description: description.value,
             //imageUrl: url.value,
             //filePath: filePath.value,
             location: location.value,
-            participants: [],
+            participants: [user.value.displayName],
             creatorId: user.value.uid,
             creatorName: user.value.displayName,
             dates: dates.value,
         });
 
         isPending.value = false;
-
         if(!error.value) {
-            console.log(`playlist created !!`);
-            router.push({ name: 'home'});
+          console.log(`event created !!`);
+
+          console.log(res)
+
+          router.push({ name: 'home'});
 
         } else {
             console.log(error.value);
