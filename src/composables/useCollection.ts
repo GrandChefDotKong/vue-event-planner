@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { projectStore } from '../firebase/config';
 import Event from "@/interface/Event";
 
@@ -30,8 +30,9 @@ const useCollection = (collectionName: string) => {
         isPending.value = false;
       }
     }
-
+    
     return { addToCollection, error, isPending };
 }
 
 export default useCollection;
+

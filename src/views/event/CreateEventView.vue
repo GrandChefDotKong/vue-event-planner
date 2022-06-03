@@ -9,6 +9,7 @@ import { timestamp } from '@/firebase/config';
 import useCollection from '@/composables/useCollection';
 import getUser from '@/composables/auth/getUser';
 import EventForm from '@/components/forms/EventForm.vue';
+import useNotifications from '@/composables/useNotifications';
 import { useRouter } from 'vue-router';
 import { Timestamp } from 'firebase/firestore';
 
@@ -17,10 +18,11 @@ import { Timestamp } from 'firebase/firestore';
   //const { uploadImage, url, filePath } = useStorage();
   const { error, addToCollection: addToEvent } = useCollection('events');
   const { addToCollection: addToChats } = useCollection('chats');
+  const { sendToAll } = useNotifications();
   const { user } = getUser();
   const isPending = ref(false);
 
-  const types = ['image/png', 'image/jpeg'];
+//  const types = ['image/png', 'image/jpeg'];
 
   const handleSubmit = async ( 
     title: string, 
@@ -57,6 +59,8 @@ import { Timestamp } from 'firebase/firestore';
 
     isPending.value = false;
     if(!error.value) {
+
+      sendToAll(`New Event : ${title} has been created`);
 
       addToChats({
         messages: [{

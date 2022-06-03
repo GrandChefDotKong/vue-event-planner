@@ -7,7 +7,7 @@ interface User {
     lastSignin: Timestamp,
     events: Event[],
     notifications: string[],
-    id: string
+    uid: string
 }
 
 export default User;

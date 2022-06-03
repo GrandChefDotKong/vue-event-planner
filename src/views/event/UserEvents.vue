@@ -1,5 +1,5 @@
 <template>
-  <h3 v-if="member">{{ member.displayName }} Event :</h3>
+  <h3 v-if="user">{{ user.displayName }} Event :</h3>
   <div v-if="docs.length" class="events">
     <div v-for="event in docs" class="event">
       <h3>{{ event.title }}</h3>
@@ -24,13 +24,6 @@ import getDocument from '@/composables/getDocument';
 
   const { user } = getUser();
 
-  let member: any;
-
-  if(user.value) {
-    member = getDocument('users', user.value.uid).document;
-  } else {
-    member = null;
-  }
   const { docs, error } = getCollection('events', 
     ['creatorId', '==', props.id]);
 

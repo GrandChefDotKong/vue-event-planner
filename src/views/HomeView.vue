@@ -1,4 +1,5 @@
 <template>
+  <Notifications />
   <div v-if="docs">
     <Calendar :events="docs"/>
   </div>
@@ -7,8 +8,9 @@
 <script setup lang="ts">
 import getCollection from "@/composables/getCollection";
 import Calendar from '@/components/Calendar.vue';
-import { onUpdated } from "vue";
-  
+import Notifications from "@/components/Notifications.vue";
+import Notifications1 from "@/components/Notifications.vue";
+
   const { docs } = getCollection('events');
 
 </script>
