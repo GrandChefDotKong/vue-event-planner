@@ -1,7 +1,6 @@
 import { ref } from "vue";
-import { addDoc, collection, getDocs, updateDoc } from "firebase/firestore";
+import { doc, collection, getDocs, updateDoc, getDoc } from "firebase/firestore";
 import { projectStore } from '../firebase/config';
-import Event from "@/interface/Event";
 
 const useNotifications = () => {
 
@@ -26,8 +25,21 @@ const useNotifications = () => {
       isPending.value = false;
     }
   }
+
+  const sendToParticipants = async (notification: string, listId: string[]) => {
+    listId.forEach(async(id) => {
+      
+      const docSnap = await getDoc(doc(projectStore, 'users', id))
+
+      if(!docSnap.exists()) return;
+
+      updateDoc(doc(projectStore, 'users', id), {
+        notifications: [...docSnap.data().notifications, notification]
+      })
+    })
+  }
     
-  return { sendToAll, error };
+  return { sendToAll, sendToParticipants , error };
 }
 
 export default useNotifications;

@@ -18,7 +18,6 @@
 import getCollection from '@/composables/getCollection';
 import getUser from '@/composables/auth/getUser';
 import useDocument from '@/composables/useDocument';
-import getDocument from '@/composables/getDocument';
 
   const props = defineProps<{ id: string }>();
 

@@ -12,6 +12,7 @@ import getDocument from '@/composables/getDocument';
 import EventForm from '@/components/forms/EventForm.vue';
 import { useRouter } from 'vue-router';
 import { Timestamp } from 'firebase/firestore';
+import useNotifications from '@/composables/useNotifications';
 
   const props = defineProps<{ id: string }>();
 
@@ -21,6 +22,7 @@ import { Timestamp } from 'firebase/firestore';
   const router = useRouter();
   const { user } = getUser();
   const isPending = ref(false);
+  const { sendToParticipants } = useNotifications();
 
   const handleSubmit = async ( 
     title: string, 
@@ -44,6 +46,8 @@ import { Timestamp } from 'firebase/firestore';
     isPending.value = false;
     if(!error.value) {
       
+      sendToParticipants(`Event ${title} has been updated !`, event.value.participants)
+
       router.push({ name: 'event-details', params: { id: props.id }});
 
     } else {
