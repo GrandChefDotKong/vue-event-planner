@@ -2,6 +2,7 @@
   <div v-if="event" class="event">
       <h3>{{ event?.title }}</h3>
       <p>{{ event.description }}</p>
+      <p>When ? : {{ event.dates.toDate() }}</p>
       <p>Location : {{ event.location }}</p>
       <div>
         <ul v-if="event.participants.length">

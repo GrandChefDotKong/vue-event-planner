@@ -1,9 +1,11 @@
+import { Timestamp } from "firebase/firestore";
+
 interface Event {
     id: string,
     title: string,
     description: string,
     location: string,
-    dates: Date,
+    dates: Timestamp,
     creatorId: string,
     creatorName: string,
     participants: string[],

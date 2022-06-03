@@ -10,7 +10,6 @@ const useDocument = (collectionName: string, id: string) => {
 
     let docRef = doc(collection(projectStore, collectionName), id);
 
-
     const updateDocument = async (updatedDocument: any) => {
         isPending.value = true;
         error.value = null;

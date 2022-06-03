@@ -32,7 +32,7 @@ import Message from '@/interface/Message';
         message: message.value,
         userName: user.value.displayName,
         userId: user.value.uid,
-        createdAt: new Date() // timestamp.now()
+        createdAt: timestamp.now()
     }
 
     await updateDocument({ messages: [...props.document.messages, newMessage] });
