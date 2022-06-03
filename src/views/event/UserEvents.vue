@@ -6,7 +6,7 @@
       <router-link :to="{ name: 'update-event', params: { id: event.id } }">
         Update
       </router-link>
-      <button>Delete</button>
+      <button @click="() => handleDelete(event.id)">Delete</button>
     </div>
   </div>
   <div v-if="error">
@@ -24,6 +24,12 @@ import useDocument from '@/composables/useDocument';
 
   const { docs, error } = getCollection('events', 
     ['creatorId', '==', props.id]);
+
+  const handleDelete = async (id: string) => {
+    const { deleteDocument } = useDocument('events', id);
+
+    await deleteDocument();
+  }
 
 </script>
 

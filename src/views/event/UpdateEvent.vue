@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { timestamp } from '@/firebase/config';
 import useDocument from '@/composables/useDocument';
 import getUser from '@/composables/auth/getUser';
 import getDocument from '@/composables/getDocument';
