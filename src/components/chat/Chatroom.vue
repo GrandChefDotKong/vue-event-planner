@@ -17,13 +17,14 @@ import ChatWindow from '@/components/chat/ChatWindow.vue';
 
   const { document, error }: { document: Ref<any>, error: Ref } = getDocument("chats", props.id);
 
+
   const { user } = getUser();
   const router = useRouter();
 
   watch(user, () => {
-      if(!user.value) {
-          router.push({ name: 'home' });
-      }
+    if(!user.value) {
+      router.push({ name: 'home' });
+    }
   })
   
 </script>

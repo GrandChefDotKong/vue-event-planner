@@ -10,7 +10,7 @@ const useStorage = () => {
     const url = ref<string | null>(null);
     const filePath = ref<string | null>(null);
 
-    const uploadImage = async (file: any) => {
+    const uploadImage = async (file: any) => { /*
         filePath.value = `covers/${user.value?.uid}/${file.name}`;
 
         const storageRef = storageReference(projectStorage, filePath.value);
@@ -21,7 +21,7 @@ const useStorage = () => {
         }).catch((err) => {
             console.log(err.message);
             error.value = err.message;
-        })
+        }) */
     }
 
     const deleteImage = async (path: string) => {

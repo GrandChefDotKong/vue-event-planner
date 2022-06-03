@@ -1,5 +1,5 @@
 <template>
-  <h3>My Event :</h3>
+  <h3 v-if="member">{{ member.displayName }} Event :</h3>
   <div v-if="docs.length" class="events">
     <div v-for="event in docs" class="event">
       <h3>{{ event.title }}</h3>
@@ -18,17 +18,28 @@
 import getCollection from '@/composables/getCollection';
 import getUser from '@/composables/auth/getUser';
 import useDocument from '@/composables/useDocument';
+import getDocument from '@/composables/getDocument';
 
   const props = defineProps<{ id: string }>();
-  const { user } = getUser();
 
+  const { user } = getUser();
+
+  let member: any;
+
+  if(user.value) {
+    member = getDocument('users', user.value.uid).document;
+  } else {
+    member = null;
+  }
   const { docs, error } = getCollection('events', 
     ['creatorId', '==', props.id]);
 
   const handleDelete = async (id: string) => {
-    const { deleteDocument } = useDocument('events', id);
+    const { deleteDocument: deleteEvent } = useDocument('events', id);
+    const { deleteDocument: deleteChat } = useDocument('chats', id)
 
-    await deleteDocument();
+    await deleteEvent();
+    await deleteChat();
   }
 
 </script>
