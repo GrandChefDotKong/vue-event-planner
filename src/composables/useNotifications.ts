@@ -1,13 +1,14 @@
 import { ref } from "vue";
 import { doc, collection, getDocs, updateDoc, getDoc } from "firebase/firestore";
 import { projectStore } from '../firebase/config';
+import { Notifications } from "@/interface/Notifications";
 
 const useNotifications = () => {
 
   const error = ref<string | null>(null);
   const isPending = ref(false);
 
-  const sendToAll = async (notification: string) => {
+  const sendToAll = async (notification: Notifications) => {
     error.value = null;
     isPending.value = true;
 
@@ -26,7 +27,7 @@ const useNotifications = () => {
     }
   }
 
-  const sendToParticipants = async (notification: string, listId: string[]) => {
+  const sendToParticipants = async (notification: Notifications, listId: string[]) => {
     listId.forEach(async(id) => {
       
       const docSnap = await getDoc(doc(projectStore, 'users', id))

@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import getUser from '@/composables/auth/getUser';
-import getDocument from "@/composables/getDocument";
+import { getDocument } from "@/composables/getDocument";
 import { Ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import NewChatForm from '@/components/chat/NewChatForm.vue';

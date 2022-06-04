@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+import { DocumentReference, Timestamp } from "firebase/firestore";
 
 interface Event {
     id: string,
@@ -8,7 +8,7 @@ interface Event {
     dates: Timestamp,
     creatorId: string,
     creatorName: string,
-    participants: string[],
+    participants: DocumentReference[],
 }
 
 export default Event;

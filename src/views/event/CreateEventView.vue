@@ -12,6 +12,7 @@ import EventForm from '@/components/forms/EventForm.vue';
 import useNotifications from '@/composables/useNotifications';
 import { useRouter } from 'vue-router';
 import { Timestamp } from 'firebase/firestore';
+import { Notifications, NotificationsType } from '@/interface/Notifications';
 
   const router = useRouter();
 
@@ -51,7 +52,7 @@ import { Timestamp } from 'firebase/firestore';
       //imageUrl: url.value,
       //filePath: filePath.value,
       location: location,
-      participants: [user.value.displayName],
+      participants: [user.value.uid],
       creatorId: user.value.uid,
       creatorName: user.value.displayName,
       dates: dates,
@@ -59,8 +60,12 @@ import { Timestamp } from 'firebase/firestore';
 
     isPending.value = false;
     if(!error.value) {
-
-      sendToAll(`New Event : ${title} has been created`);
+      
+      sendToAll({
+        type: NotificationsType.event_create,
+        content: `New Event : ${title} has been created`,
+        link: `/events/${res.id}`
+      });
 
       addToChats({
         messages: [{

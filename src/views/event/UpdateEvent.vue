@@ -8,11 +8,12 @@
 import { ref } from 'vue';
 import useDocument from '@/composables/useDocument';
 import getUser from '@/composables/auth/getUser';
-import getDocument from '@/composables/getDocument';
+import { getDocument } from '@/composables/getDocument';
 import EventForm from '@/components/forms/EventForm.vue';
 import { useRouter } from 'vue-router';
 import { Timestamp } from 'firebase/firestore';
 import useNotifications from '@/composables/useNotifications';
+import { Notifications, NotificationsType } from '@/interface/Notifications';
 
   const props = defineProps<{ id: string }>();
 
@@ -45,8 +46,17 @@ import useNotifications from '@/composables/useNotifications';
 
     isPending.value = false;
     if(!error.value) {
+
+      const newNotification: Notifications = {
+        type: NotificationsType.event_update,
+        content: `Event ${title} has been updated !`, 
+        link: `/events/${props.id}` 
+      }
+
+      console.log(newNotification);
       
-      sendToParticipants(`Event ${title} has been updated !`, event.value.participants)
+      sendToParticipants(newNotification,
+        event.value.participants)
 
       router.push({ name: 'event-details', params: { id: props.id }});
 

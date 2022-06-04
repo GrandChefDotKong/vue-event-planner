@@ -1,9 +1,8 @@
 import { ref, watchEffect } from 'vue';
 import { projectStore } from '../firebase/config';
-import { doc, collection, onSnapshot } from 'firebase/firestore';
-import Event from '@/interface/Event';
+import { doc, collection, onSnapshot, DocumentReference, getDoc } from 'firebase/firestore';
 
-const getDocument = (collectionName: string, id: string) => {
+export const getDocument = (collectionName: string, id: string) => {
 
   const document = ref<any>(null);
   const error = ref<string | null>(null);
@@ -33,4 +32,24 @@ const getDocument = (collectionName: string, id: string) => {
   return { document, error };
 }
 
-export default getDocument;
+export const getDocumentWithRef = async (docRef: DocumentReference) => {
+
+  const document = ref<any>(null);
+  const error = ref<string | null>(null);
+
+  try {
+    
+    const docSnap = await getDoc(docRef);
+    if(docSnap.exists()) {
+      document.value = { ...docSnap.data()};
+      error.value = null;
+    }
+    
+  } catch (err: any) {
+    console.log(err.message);
+    error.value = 'Coul not fetch data from the server :/';
+    document.value = null;
+  }
+
+  return { document, error };
+}
