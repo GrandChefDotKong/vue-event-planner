@@ -28,7 +28,8 @@ import Event from '@/interface/Event';
 import Chatroom from '@/components/chat/Chatroom.vue';
 import { computed, onMounted, onUpdated, Ref, ref, watch } from 'vue';
 import User from '@/interface/User';
-import { getDoc } from 'firebase/firestore';
+import { doc, DocumentReference, getDoc } from 'firebase/firestore';
+import { projectStore } from '@/firebase/config';
 
   const props = defineProps<{ id: string }>();
   const { document: event, error }: { document: Ref<Event>, error: Ref } = getDocument('events', props.id);
@@ -37,17 +38,20 @@ import { getDoc } from 'firebase/firestore';
   const { user } = getUser();
 
   const isParticipating = computed<Boolean>(() => {
-    if(!user.value || !event.value?.participants.length) return false;
+    if(!user.value || !participants.value.length) return false;
 
-    return false;
-    //return event.value.participants.includes(user.value.uid);
+    return participants.value.some((participant) => {
+      if(user.value?.uid) {
+        return participant.uid === user.value.uid;
+      }
+    })
   })
 
   const participants = ref<User[]>([]);
 
   watch(event, () => {
     participants.value = [];
-    
+
     if(!event.value.participants.length) return;
 
     event.value.participants.forEach(async(userRef) => {
@@ -55,35 +59,34 @@ import { getDoc } from 'firebase/firestore';
       const userSnap = await getDoc(userRef);
       if(userSnap.exists()) {
         
-        participants.value.push(userSnap.data() as User);
+        participants.value.push({ ...userSnap.data(), uid: userSnap.id  } as User);
       }
-    }) 
+    })
   })
 
 
   const addParticipant = async () => {
-    if(!user.value || !event.value) return;
-
-    return;
-
-    if(isParticipating.value) return;
+    if(!user.value || !event.value || isParticipating.value) return;
 
       await updateDocument({ 
-        participants: [...event.value.participants, user.value?.uid]
+        participants: [...event.value.participants, doc(projectStore,'users', user.value.uid)]
       });
   }
 
-  const removeParticipant = async () => { /*
+  const removeParticipant = async () => { 
     if(!user.value || !event.value) return;
 
     if(!isParticipating.value) return;
 
-    const newPraticipants = event.value.participants.filter(
-      (name) => name != user.value?.uid
-    )
+    const newPraticipants = event.value.participants.filter(ref => {
+      if(user.value) {
+        return ref.path != `users/${user.value.uid}`
+      }
+    });
+
     await updateDocument({ 
       participants: newPraticipants
-    }); */
+    });
   }
 
 </script>
