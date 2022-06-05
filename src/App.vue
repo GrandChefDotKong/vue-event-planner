@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
+  <div class="flex flex-col">
     <navbar />
-    <router-view/>
+    <div class="container mx-auto px-2"><router-view /></div>
   </div>
 </template>
 
@@ -12,11 +12,3 @@ export default {
   components: { Navbar },
 }
 </script>
-
-<style>
-.content {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 20px;
-}
-</style>

@@ -10,12 +10,12 @@
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
+          <span class="day-label text-xs text-gray-900">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
               :key="attr.key"
-              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
+              class="text-xs text-white bg-violet leading-tight rounded-sm"
             >
               <router-link :to="{ name: 'event-details', params: { id: attr.customData.id } }">{{ attr.customData.title }}</router-link>
             </div>
@@ -63,8 +63,8 @@ export default {
 /deep/ .custom-calendar.vc-container {
   --day-border: 1px solid #b8c2cc;
   --day-border-highlight: 1px solid #b8c2cc;
-  --day-width: 90px;
-  --day-height: 90px;
+  --day-width: 40px;
+  --day-height: 60px;
   --weekday-bg: #f8fafc;
   --weekday-border: 1px solid #eaeaea;
   border-radius: 0;

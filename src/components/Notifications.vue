@@ -1,11 +1,15 @@
 <template>
-  <div v-if="user">
-    <div v-for="notif in user.notifications" :key="user.notifications.indexOf(notif)">
-      <router-link :to="notif.link">
+  <div class="" v-if="user">
+    <div class="pl-2 text-violet flex flex-row justify-between items-center my-1 text-sm border-solid 
+    border-2 border-violet rounded-md" v-for="notif in user.notifications" :key="user.notifications.indexOf(notif)">
+      <router-link v-if="notif.link" :to="notif.link">
         {{ notif.content }}
-      </router-link> 
-      <button @click="() => handleDelete(notif)">
-        delete
+      </router-link>
+      <div v-else>
+        {{ notif.content }}
+      </div> 
+      <button class="bg-violet text-white p-1" @click="() => handleDelete(notif)">
+        x
       </button>
     </div>
   </div>

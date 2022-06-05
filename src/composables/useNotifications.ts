@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { doc, collection, getDocs, updateDoc, getDoc } from "firebase/firestore";
+import { doc, collection, getDocs, updateDoc, getDoc, DocumentReference } from "firebase/firestore";
 import { projectStore } from '../firebase/config';
 import { Notifications } from "@/interface/Notifications";
 
@@ -27,14 +27,14 @@ const useNotifications = () => {
     }
   }
 
-  const sendToParticipants = async (notification: Notifications, listId: string[]) => {
-    listId.forEach(async(id) => {
+  const sendToParticipants = async (notification: Notifications, docsRef: DocumentReference[]) => {
+    docsRef.forEach(async(docRef) => {
       
-      const docSnap = await getDoc(doc(projectStore, 'users', id))
+      const docSnap = await getDoc(docRef);
 
       if(!docSnap.exists()) return;
 
-      updateDoc(doc(projectStore, 'users', id), {
+      await updateDoc(doc(projectStore, 'users', docSnap.id), {
         notifications: [...docSnap.data().notifications, notification]
       })
     })

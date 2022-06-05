@@ -12,17 +12,23 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { timestamp } from '@/firebase/config';
 import getUser from '@/composables/auth/getUser';
 import useDocument from '@/composables/useDocument';
 import Message from '@/interface/Message';
+import { getDocument } from '@/composables/getDocument';
+import useNotifications from '@/composables/useNotifications';
+import { NotificationsType } from '@/interface/Notifications';
+import Event from '@/interface/Event';
 
   const props = defineProps<{ id: string, document: any }>();
 
   const message = ref('');
   const { user } = getUser();
   const { error, updateDocument } = useDocument('chats', props.id);
+  const { document: event }: { document: Ref<Event> }  = getDocument('events', props.id);
+  const { sendToParticipants } = useNotifications();
 
   const handleSubmit = async () => {
 
@@ -38,6 +44,12 @@ import Message from '@/interface/Message';
     await updateDocument({ messages: [...props.document.messages, newMessage] });
 
     if(!error.value) {
+      sendToParticipants({
+        type: NotificationsType.chat_new,
+        content: `${user.value.displayName} posted a message in ${event.value.title}`,
+        link: `/events/${event.value.id}`,
+      }, event.value.participants)
+
       message.value = '';
     }
   }

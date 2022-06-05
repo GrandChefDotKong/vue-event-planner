@@ -21,19 +21,22 @@
 </template>
 
 <script setup lang="ts">
-import { getDocument, getDocumentWithRef } from '@/composables/getDocument';
+import { getDocument } from '@/composables/getDocument';
 import useDocument from '@/composables/useDocument';
 import getUser from '@/composables/auth/getUser';
 import Event from '@/interface/Event';
 import Chatroom from '@/components/chat/Chatroom.vue';
-import { computed, onMounted, onUpdated, Ref, ref, watch } from 'vue';
+import { computed, Ref, ref, watch } from 'vue';
 import User from '@/interface/User';
-import { doc, DocumentReference, getDoc } from 'firebase/firestore';
+import { doc,getDoc } from 'firebase/firestore';
 import { projectStore } from '@/firebase/config';
+import useNotifications from '@/composables/useNotifications';
+import { NotificationsType } from '@/interface/Notifications';
 
   const props = defineProps<{ id: string }>();
   const { document: event, error }: { document: Ref<Event>, error: Ref } = getDocument('events', props.id);
   const { updateDocument } = useDocument('events', props.id);
+  const { sendToParticipants } = useNotifications();
 
   const { user } = getUser();
 
@@ -64,13 +67,19 @@ import { projectStore } from '@/firebase/config';
     })
   })
 
-
   const addParticipant = async () => {
     if(!user.value || !event.value || isParticipating.value) return;
 
-      await updateDocument({ 
-        participants: [...event.value.participants, doc(projectStore,'users', user.value.uid)]
-      });
+    sendToParticipants({
+      type: NotificationsType.event_update,
+      content: `${user.value.displayName} is joining ${event.value.title}`,
+      link: `/events/${event.value.id}`,
+    }, event.value.participants);
+
+    await updateDocument({ 
+      participants: [...event.value.participants, doc(projectStore,'users', user.value.uid)]
+    });
+
   }
 
   const removeParticipant = async () => { 
@@ -80,10 +89,16 @@ import { projectStore } from '@/firebase/config';
 
     const newPraticipants = event.value.participants.filter(ref => {
       if(user.value) {
-        return ref.path != `users/${user.value.uid}`
+        return ref.path !== `users/${user.value.uid}`
       }
     });
-
+  
+    sendToParticipants({
+      type: NotificationsType.event_update,
+      content: `${user.value.displayName} won't join ${event.value.title}`,
+      link: `/events/${event.value.id}`,
+    }, newPraticipants);
+  
     await updateDocument({ 
       participants: newPraticipants
     });
