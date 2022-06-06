@@ -12,9 +12,9 @@
       <div v-if="fileError" class="error">{{ fileError }}</div>
     -->
       <button class="border-solid border-cyan rounded-md bg-cyan 
-    text-white border-2 p-2 mt-4" v-if="!isPending">{{ props.formTitle }}</button>
+    text-white border-2 p-2" v-if="!isPending">{{ props.formTitle }}</button>
       <button class="border-solid border-cyan rounded-md bg-cyan 
-    text-white border-2 p-2 mt-4" v-else disabled>Loading</button>
+    text-white border-2 p-2" v-else disabled>Loading</button>
   </form>
 </template>
 

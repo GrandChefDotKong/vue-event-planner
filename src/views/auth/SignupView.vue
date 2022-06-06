@@ -7,9 +7,9 @@
     <input class="mt-3 px-2 py-1" type="password" placeholder="Password" v-model="password">
     <div v-if="error" class="error">{{ error }}</div>
     <button class="border-solid border-cyan rounded-md bg-cyan 
-    text-white border-2 p-2 mt-4" v-if="!isPending">Sign Up</button>
+    text-white border-2 p-2 mt-3" v-if="!isPending">Sign Up</button>
     <button class="border-solid border-cyan rounded-md bg-cyan 
-    text-white border-2 p-2 mt-4" v-if="isPending" disabled>Loading</button>
+    text-white border-2 p-2 mt-3" v-if="isPending" disabled>Loading</button>
   </form>
 </template>
 

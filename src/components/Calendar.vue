@@ -1,6 +1,6 @@
 <template>
-  <div v-if="events.length" class="text-center section">
-    <h2 class="h2">Upcoming Event</h2>
+  <div v-if="events.length" class="text-center section mt-2">
+    <h2 class="py-2 text-violet">Upcoming Events</h2>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -10,7 +10,7 @@
     >
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-xs text-gray-900">{{ day.day }}</span>
+          <span class="day-label text-xs font-medium text-primary">{{ day.day }}</span>
           <div class="flex-grow overflow-y-auto overflow-x-auto">
             <div
               v-for="attr in attributes"
@@ -61,17 +61,23 @@ export default {
   display: none;
 }
 /deep/ .custom-calendar.vc-container {
-  --day-border: 1px solid #b8c2cc;
-  --day-border-highlight: 1px solid #b8c2cc;
+  --day-border: 1px solid #b58900;
+  --day-border-highlight: 1px solid #b58900;
   --day-width: 40px;
   --day-height: 60px;
-  --weekday-bg: #f8fafc;
-  --weekday-border: 1px solid #eaeaea;
+  --weekday-bg: #fdf6e3;
+  --weekday-border: 1px solid #b58900;
   border-radius: 0;
   width: 100%;
+  border-color: #b58900;
+
   & .vc-header {
-    background-color: #f1f5f8;
+    background-color: #b58900;
     padding: 10px 0;
+
+    & .vc-title {
+      color: white;
+    }
   }
   & .vc-weeks {
     padding: 0;
@@ -81,16 +87,17 @@ export default {
     border-bottom: var(--weekday-border);
     border-top: var(--weekday-border);
     padding: 5px 0;
+    color: #b58900;
   }
   & .vc-day {
     padding: 0 5px 3px 5px;
     text-align: left;
     height: var(--day-height);
     min-width: var(--day-width);
-    background-color: white;
+    background-color: #fdf6e3;
     &.weekday-1,
     &.weekday-7 {
-      background-color: #eff8ff;
+      background-color: #fff;
     }
     &:not(.on-bottom) {
       border-bottom: var(--day-border);

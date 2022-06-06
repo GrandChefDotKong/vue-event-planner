@@ -2,12 +2,15 @@
   <div class="flex flex-col justify-center my-2">
     <h2 class="text-cyan text-center" v-if="user">{{ user.displayName.toUpperCase() }} Event :</h2>
     <div class="flex flex-col justify-center" v-if="docs.length">
-      <div class="flex flex-row justify-start bg-white p-2 m-2" v-for="event in docs">
+      <div class="flex flex-row justify-start rounded-md bg-white 
+      text-primary p-2 m-2" v-for="event in docs">
         <h3 class="basis-2/3">{{ event.title }}</h3>
         <router-link class="basis-1/4" :to="{ name: 'update-event', params: { id: event.id } }">
           Update
         </router-link>
-        <button class="mx-2 px-1 text-white bg-cyan" @click="() => handleDelete(event)">x</button>
+        <button class="mx-2 px-1 text-white rounded-md bg-cyan" @click="() => handleDelete(event)">
+          <img class="h-4 w-4" src="@/assets/trash.svg" alt="trash">
+        </button>
       </div>
     </div>
     <div v-if="error">
