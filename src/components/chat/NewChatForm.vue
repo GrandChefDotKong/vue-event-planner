@@ -1,11 +1,16 @@
 <template>
-  <form>
-    <textarea 
-      placeholder="Type your message and hit enter"
+  <form class="self-center p-0 shadow-md rounded-lg w-full flex flex-row 
+  justify-around ">
+    <input
+      type="text" 
+      placeholder="Type your message here"
       v-model="message"
       @keypress.enter.prevent="handleSubmit"
+      class="w-full bg-gray rounded-l-lg pl-2 
+      focus:outline-none focus:shadow-md"
     >
-    </textarea>
+    <button @click.prevent="handleSubmit" class="border-solid border-cyan 
+    rounded-r-md bg-cyan text-white text-sm border-2 p-1">Send</button>
     <div v-if="error" class="error">{{ error }}</div>
   </form>
 </template>

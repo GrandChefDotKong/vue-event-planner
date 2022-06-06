@@ -40,6 +40,8 @@ export default {
     propsToAttributes() {
       let attributes = []
       this.events.forEach(event => {
+        if(!event.dates) return;
+        
         attributes.push({
           key: event.id,
           customData: event,

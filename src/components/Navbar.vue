@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen 
-  h-full m-0 py-1 rounded-b-lg bg-cyan text-white">
+  h-fit m-0 py-1 rounded-b-lg bg-cyan text-white">
     <nav class="flex flex-row justify-around py-2">
       <router-link :to="{ name: 'home' }" class="basis-1/4">
         <img class="h-9 w-9 ml-4" src="@/assets/calendar.svg" alt="logo">
@@ -17,7 +17,8 @@
             <img class="h-7 w-7" src="@/assets/logout.svg" alt="logout">
           </button>
           <button v-else disabled>Loading</button>
-          <div><img class="h-7 w-7" src="@/assets/bell.svg" alt=""></div>
+
+          <button @click="handleClick"><img class="h-7 w-7" src="@/assets/bell.svg" alt=""></button>
 
         </div>
         <div class="flex h-full flex-row items-center justify-around" v-else>
@@ -37,17 +38,24 @@
 import useSignout from "@/composables/auth/useSignout";
 import getUser from "@/composables/auth/getUser";
 import { useRouter } from "vue-router";
-const { error, signout, isPending } = useSignout();
-const { user } = getUser();
-const router = useRouter();
 
-const handleSignout = async () => {
-    await signout();
-    if(!error.value) {
-        user.value = null;
-        router.push({ name: 'signin' });
-    }
-}
+  const { error, signout, isPending } = useSignout();
+  const { user } = getUser();
+  const router = useRouter();
+
+  const emit = defineEmits(['openDrawer']);
+  const handleClick = () => {
+    emit('openDrawer');
+  }
+
+
+  const handleSignout = async () => {
+      await signout();
+      if(!error.value) {
+          user.value = null;
+          router.push({ name: 'signin' });
+      }
+  }
 </script>
 
 <style scoped> /*

@@ -14,7 +14,7 @@ module.exports = {
         magenta: '#d33682',
         green: '#859900',
         violet: '#6c71c4',
-        gray: colors.gray
+        gray: '#f3f3f3',
       }
     },
   },

@@ -1,14 +1,27 @@
 <template>
-  <div class="flex flex-col">
-    <navbar />
-    <div class="container mx-auto px-2"><router-view /></div>
+  <div class="flex flex-col justify-start h-screen">
+    <navbar @open-drawer="openDrawer" />
+    <aside
+      class="transform top-0 left-0 w-64 bg-primary_bg rounded-r-md drop-shadow-lg 
+      fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
+      :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
+      <h3 class="text-center text-white bg-violet text-lg py-1 mb-4">Notifications</h3>
+      <notifications />
+    </aside>
+    <router-view />
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
+import Notifications from './components/Notifications.vue';
+import { ref, watch } from 'vue';
 
-export default {
-  components: { Navbar },
-}
+  const isOpen = ref(false);
+
+  const openDrawer = () => {
+    console.log('open')
+    isOpen.value = !isOpen.value;
+  }
+
 </script>

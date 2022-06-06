@@ -2,13 +2,18 @@
   <div class="flex flex-col justify-center my-2">
     <h2 class="text-cyan text-center" v-if="user">{{ user.displayName.toUpperCase() }} Event :</h2>
     <div class="flex flex-col justify-center" v-if="docs.length">
-      <div class="flex flex-row justify-start rounded-md bg-white 
-      text-primary p-2 m-2" v-for="event in docs">
-        <h3 class="basis-2/3">{{ event.title }}</h3>
-        <router-link class="basis-1/4" :to="{ name: 'update-event', params: { id: event.id } }">
+      <div class="flex flex-row justify-start rounded-md shadow-md bg-white 
+      text-primary p-2 m-3" v-for="event in docs">
+        <h3 class="basis-2/3">
+          <router-link :to="{ name: 'event-details', params: { id: event.id } }">
+            {{ event.title }}
+          </router-link>
+        </h3>
+        <router-link class="w-fit text-xs mx-2 p-1 shadow-md text-white rounded-md bg-cyan" 
+        :to="{ name: 'update-event', params: { id: event.id } }">
           Update
         </router-link>
-        <button class="mx-2 px-1 text-white rounded-md bg-cyan" @click="() => handleDelete(event)">
+        <button class="mx-2 px-1 text-white rounded-md shadow-md bg-cyan" @click="() => handleDelete(event)">
           <img class="h-4 w-4" src="@/assets/trash.svg" alt="trash">
         </button>
       </div>

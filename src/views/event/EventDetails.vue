@@ -1,22 +1,30 @@
 <template>
-  <div v-if="event" class="event">
-      <h3>{{ event?.title }}</h3>
-      <p>{{ event.description }}</p>
-      <p>When ? : {{ event.dates.toDate() }}</p>
-      <p>Location : {{ event.location }}</p>
-      <ul v-if="participants.length">
-        <li v-for="participant in participants">
-          {{ participant.displayName }}
+  <div class="px-6 grow flex flex-col justify-around py-3" >
+    <div v-if="event" class="basis-1/3 flex flex-col justify-between text-primary">
+      <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md bg-primary text-white shadow-sm">{{ event?.title }}</h3>
+      <p>What : {{ event.description }}</p>
+      <p v-if="event.dates">When : {{ event.dates.toDate().toDateString() }}
+      at : {{ event.dates.toDate().toLocaleTimeString() }}
+      </p>
+      <p v-else>When : not decided yet</p>
+      <p>Where : {{ event.location }}</p>
+      <h3 class="mb-1">List of participants : </h3>
+      <ul class="flex flex-row mb-1" v-if="participants.length">
+        <li class="ml-2 text-violet" v-for="participant in participants">
+          {{ participant.displayName }}, 
         </li>
       </ul>
       <div v-else>No participants</div>
-      <div>
-        <button v-if="!isParticipating" @click="addParticipant">Click to join</button>
-        <button v-else @click="removeParticipant">Click to unjoin</button>
+      <div class="self-center">
+        <button class="text-sm border-solid shadow-md border-cyan rounded-md bg-cyan 
+      text-white border-2 p-2" v-if="!isParticipating" @click="addParticipant">Click to join</button>
+        <button class="text-sm shadow-md border-solid border-cyan rounded-md bg-cyan 
+      text-white border-2 p-2" v-else @click="removeParticipant">Click to unjoin</button>
       </div>
-  </div>
-  <div>
-    <chatroom :id="props.id" />
+    </div>
+    <div class="basis-2/3 pt-4">
+      <chatroom :id="props.id" />
+    </div>
   </div>
 </template>
 

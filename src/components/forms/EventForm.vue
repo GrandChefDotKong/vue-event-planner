@@ -2,18 +2,21 @@
   <form class="flex flex-col items-center mt-4 bg-inherit" 
   @submit.prevent="handleClick">
       <h2 class="text-cyan">{{ props.formTitle }} Event</h2>
-      <input class="mt-3 px-2 py-1" type="text" placeholder="Event Title" v-model="title" required autofocus>
-      <textarea class="mt-3 h-20 px-2 py-1" cols="22" placeholder="Event Description" v-model="description" required></textarea>
-      <input class="mt-3 px-2 py-1" type="text" placeholder="Event Location" v-model="location" required>
+      <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 
+        placeholder="Event Title" v-model="title" required autofocus>
+      <textarea class="mt-3 h-20 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" 
+        cols="22" placeholder="Event Description" v-model="description" required></textarea>
+      <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 
+        placeholder="Event Location" v-model="location" required>
       <v-date-picker color="teal" class="mt-4 px-2 py-1" v-model="dates" mode="dateTime" timezone="" /><br>
     <!--
       <label>Upload event image</label>
       <input type="file" @change="handleChange" required>
       <div v-if="fileError" class="error">{{ fileError }}</div>
     -->
-      <button class="border-solid border-cyan rounded-md bg-cyan 
+      <button class="border-solid shadow-md border-cyan rounded-md bg-cyan 
     text-white border-2 p-2" v-if="!isPending">{{ props.formTitle }}</button>
-      <button class="border-solid border-cyan rounded-md bg-cyan 
+      <button class="border-solid shadow-md border-cyan rounded-md bg-cyan 
     text-white border-2 p-2" v-else disabled>Loading</button>
   </form>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <div class="" v-if="user">
-    <div class="pl-2 text-violet flex flex-row justify-between items-center my-1 text-sm border-solid 
+  <div v-if="user?.notifications.length" class="mx-2 flex flex-col items-center">
+    <div class="pl-2 text-violet flex flex-row justify-between items-center my-2 text-sm border-solid 
     border-2 border-violet rounded-md" v-for="notif in user.notifications" :key="user.notifications.indexOf(notif)">
       <router-link v-if="notif.link" :to="notif.link">
         {{ notif.content }}
@@ -8,10 +8,16 @@
       <div v-else>
         {{ notif.content }}
       </div> 
-      <button class="bg-violet text-white p-1" @click="() => handleDelete(notif)">
-        x
-      </button>
+      <button class="mx-2 px-1 text-white rounded-md shadow-md bg-violet" @click="() => handleDelete(notif)">
+          <img class="h-4 w-4" src="@/assets/trash.svg" alt="trash">
+        </button>
     </div>
+    <button class=" py-1 px-2 w-fit text-white rounded-md shadow-md bg-violet" @click="handleDeleteAll">
+      Delete All
+    </button>
+  </div>
+  <div class="text-center text-lg" v-else>
+    No new notifications
   </div>
 </template>
 
@@ -22,7 +28,7 @@ import { Notifications, NotificationsType } from '@/interface/Notifications';
 
 const { user } = getUser();
 
-const handleDelete = (notif: Notifications) => {
+const handleDelete = async (notif: Notifications) => {
   
   if(!user.value) return;
 
@@ -35,9 +41,20 @@ const handleDelete = (notif: Notifications) => {
       (currentValue, index) => index !== currentIndex
     )
   
-  updateDocument({ notifications: newNotifications });
+  await updateDocument({ notifications: newNotifications });
 
   user.value.notifications = newNotifications;
+}
+
+const handleDeleteAll = async () => {
+  
+  if(!user.value) return;
+
+  const { updateDocument } = useDocument('users', user.value.uid);
+  
+  await updateDocument({ notifications: [] });
+
+  user.value.notifications = [];
 }
 
 </script>
