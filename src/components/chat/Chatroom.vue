@@ -1,5 +1,5 @@
 <template>
-  <div v-if="document" class="bg-white p-4 rounded-3xl h-full flex flex-col justify-between">
+  <div v-if="document" class="bg-white p-4 rounded-3xl h-max-full flex flex-col justify-end">
     <chat-window :id="props.id" :document="document" />
     <new-chat-form :id="props.id" :document="document"/>
   </div>

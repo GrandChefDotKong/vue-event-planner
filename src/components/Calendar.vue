@@ -62,7 +62,7 @@ export default {
 ::-webkit-scrollbar-track {
   display: none;
 }
-/deep/ .custom-calendar.vc-container {
+::deep(.custom-calendar.vc-container) {
   --day-border: 1px solid #b58900;
   --day-border-highlight: 1px solid #b58900;
   --day-width: 40px;

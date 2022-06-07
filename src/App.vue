@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-start h-screen">
+  <div class="flex flex-col justify-start max-h-screen">
     <navbar @toggle-drawer="toggleDrawer" @close-drawer="closeDrawer" />
     <aside
       class="transform top-0 left-0 w-64 bg-primary_bg rounded-r-md drop-shadow-lg 
@@ -9,7 +9,7 @@
       <notifications />
     </aside>
     <router-view />
-    <div class="mt-auto mb-2 text-violet text-center text-xs">
+    <div class="mt-auto mb-2 h-full text-violet text-center text-xs">
       <router-link :to="{ name: 'about' }">copyrigth@adrien.pauchet</router-link>
     </div>
   </div>

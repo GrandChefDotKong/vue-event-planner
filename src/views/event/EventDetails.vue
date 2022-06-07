@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6 grow flex flex-col justify-around py-3" >
+  <div class="px-6 h-full grow flex flex-col justify-around py-3" >
     <div v-if="event" class="basis-1/3 flex flex-col justify-between text-primary">
       <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md bg-primary text-white shadow-sm">{{ event?.title }}</h3>
       <p>What : {{ event.description }}</p>
