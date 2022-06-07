@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-start h-screen">
-    <navbar @open-drawer="openDrawer" />
+    <navbar @toggle-drawer="toggleDrawer" @close-drawer="closeDrawer" />
     <aside
       class="transform top-0 left-0 w-64 bg-primary_bg rounded-r-md drop-shadow-lg 
       fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
@@ -9,7 +9,9 @@
       <notifications />
     </aside>
     <router-view />
-    <div class="mt-auto mb-2 text-violet text-center text-xs">copyrigth@adrien.pauchet</div>
+    <div class="mt-auto mb-2 text-violet text-center text-xs">
+      <router-link :to="{ name: 'about' }">copyrigth@adrien.pauchet</router-link>
+    </div>
   </div>
 </template>
 
@@ -20,8 +22,12 @@ import { ref, watch } from 'vue';
 
   const isOpen = ref(false);
 
-  const openDrawer = () => {
+  const toggleDrawer = () => {
     isOpen.value = !isOpen.value;
+  }
+
+  const closeDrawer = () => {
+    isOpen.value = false;
   }
 
 </script>

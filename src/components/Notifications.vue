@@ -1,6 +1,9 @@
 <template>
   <div v-if="user?.notifications.length" class="mx-2 flex flex-col items-center">
-    <div class="pl-2 text-violet flex flex-row justify-between items-center my-2 text-sm border-solid 
+    <button class=" py-1 px-2 text-white rounded-md shadow-md bg-violet" @click="handleDeleteAll">
+      Delete All
+    </button>
+    <div class="p-2 text-violet w-full flex flex-row justify-between items-center my-2 text-sm border-solid 
     border-2 border-violet rounded-md" v-for="notif in user.notifications" :key="user.notifications.indexOf(notif)">
       <router-link v-if="notif.link" :to="notif.link">
         {{ notif.content }}
@@ -8,13 +11,10 @@
       <div v-else>
         {{ notif.content }}
       </div> 
-      <button class="mx-2 px-1 text-white rounded-md shadow-md bg-violet" @click="() => handleDelete(notif)">
+      <button class="mx-2 p-1 text-white rounded-md shadow-md bg-violet" @click="() => handleDelete(notif)">
           <img class="h-4 w-4" src="@/assets/trash.svg" alt="trash">
         </button>
     </div>
-    <button class=" py-1 px-2 w-fit text-white rounded-md shadow-md bg-violet" @click="handleDeleteAll">
-      Delete All
-    </button>
   </div>
   <div class="text-center text-lg" v-else>
     No new notifications

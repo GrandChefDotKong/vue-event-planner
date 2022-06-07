@@ -11,6 +11,12 @@
     <button class="border-solid shadow-md border-cyan rounded-md bg-cyan 
     text-white border-2 p-2 mt-3" v-if="isPending" disabled>Loading</button>
   </form>
+  <button @click="connectWithGoogle" 
+  class="border-solid w-fit text-cyan shadow-md border-cyan rounded-md 
+  bg-white self-center border-2 p-2 mt-5">
+    Sign with
+    <img class="w-6 h-6 inline" src="@/assets/logo-google.svg" alt="google">
+  </button>
 </template>
 <script setup lang="ts">
 import { ref } from '@vue/reactivity';
@@ -18,14 +24,21 @@ import useSignup from '@/composables/auth/useSignup';
 import { useRouter } from 'vue-router';
 import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
+import useSignWithGoogle from '@/composables/auth/useSignWithGoogle';
 
   const { signup, error, isPending } = useSignup();
   const { sendToAll } = useNotifications();
+  const { signUpWithGoogle } = useSignWithGoogle();
 
   const email = ref('');
   const password = ref('');
   const displayName = ref('');
   const router = useRouter();
+
+  const connectWithGoogle = async () => {
+    await signUpWithGoogle();
+    router.push({ name: 'home' });
+  }
 
   const handleSubmit = async () => {
     const res = await signup(email.value, password.value, displayName.value);

@@ -3,7 +3,7 @@
   @submit.prevent="handleClick">
       <h2 class="text-cyan">{{ props.formTitle }} Event</h2>
       <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 
-        placeholder="Event Title" v-model="title" required autofocus>
+        placeholder="Event Title" v-model="title" required>
       <textarea class="mt-3 h-20 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" 
         cols="22" placeholder="Event Description" v-model="description" required></textarea>
       <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 

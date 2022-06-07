@@ -43,9 +43,9 @@ import { useRouter } from "vue-router";
   const { user } = getUser();
   const router = useRouter();
 
-  const emit = defineEmits(['openDrawer']);
+  const emit = defineEmits(['toggleDrawer', 'closeDrawer']);
   const handleClick = () => {
-    emit('openDrawer');
+    emit('toggleDrawer');
   }
 
 
@@ -53,35 +53,11 @@ import { useRouter } from "vue-router";
       await signout();
       if(!error.value) {
           user.value = null;
+          emit('closeDrawer');
           router.push({ name: 'signin' });
       }
   }
 </script>
 
-<style scoped> /*
-  .navbar {
-    padding: 16px 10px;
-    margin-bottom: 60px;
-    background: white;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  nav img {
-    max-height: 60px;
-  }
-  nav h1 {
-    margin-left: 20px;
-  }
-  nav .links {
-    margin-left: auto;
-  }
-  nav .links a, button {
-    margin-left: 16px;
-    font-size: 14px;
-  }
-  */
+<style scoped>
 </style>
