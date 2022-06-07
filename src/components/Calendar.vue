@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center section mt-2">
+  <div class="text-center section mt-2 mb-2">
     <h2 class="py-2 text-violet">Upcoming Events</h2>
     <v-calendar
       class="custom-calendar max-w-full"
@@ -62,16 +62,13 @@ export default {
 ::-webkit-scrollbar-track {
   display: none;
 }
-::deep(.custom-calendar.vc-container) {
-  --day-border: 1px solid #b58900;
-  --day-border-highlight: 1px solid #b58900;
+:deep(.custom-calendar.vc-container) {
   --day-width: 40px;
   --day-height: 60px;
   --weekday-bg: #fdf6e3;
   --weekday-border: 1px solid #b58900;
   border-radius: 0;
   width: 100%;
-  border-color: #b58900;
 
   & .vc-header {
     background-color: #b58900;
@@ -85,18 +82,14 @@ export default {
     padding: 0;
   }
   & .vc-weekday {
-    background-color: var(--weekday-bg);
-    border-bottom: var(--weekday-border);
-    border-top: var(--weekday-border);
     padding: 5px 0;
     color: #b58900;
   }
   & .vc-day {
     padding: 0 5px 3px 5px;
-    text-align: left;
+    text-align: center;
     height: var(--day-height);
     min-width: var(--day-width);
-    background-color: #fdf6e3;
     &.weekday-1,
     &.weekday-7 {
       background-color: #fff;

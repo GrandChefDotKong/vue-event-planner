@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-start max-h-screen">
+  <div class="flex flex-col justify-between min-h-screen max-h-screen">
     <navbar @toggle-drawer="toggleDrawer" @close-drawer="closeDrawer" />
     <aside
       class="transform top-0 left-0 w-64 bg-primary_bg rounded-r-md drop-shadow-lg 
