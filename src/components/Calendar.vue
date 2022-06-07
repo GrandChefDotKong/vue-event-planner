@@ -1,5 +1,5 @@
 <template>
-  <div v-if="events.length" class="text-center section mt-2">
+  <div class="text-center section mt-2">
     <h2 class="py-2 text-violet">Upcoming Events</h2>
     <v-calendar
       class="custom-calendar max-w-full"

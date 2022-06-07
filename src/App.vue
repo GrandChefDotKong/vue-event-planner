@@ -9,6 +9,7 @@
       <notifications />
     </aside>
     <router-view />
+    <div class="mt-auto mb-2 text-violet text-center text-xs">copyrigth@adrien.pauchet</div>
   </div>
 </template>
 
@@ -20,7 +21,6 @@ import { ref, watch } from 'vue';
   const isOpen = ref(false);
 
   const openDrawer = () => {
-    console.log('open')
     isOpen.value = !isOpen.value;
   }
 

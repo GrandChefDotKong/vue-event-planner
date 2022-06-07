@@ -5,13 +5,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 //import useStorage from '@/composables/useStorage';
-import { timestamp } from '@/firebase/config';
+import { projectStore, timestamp } from '@/firebase/config';
 import useCollection from '@/composables/useCollection';
 import getUser from '@/composables/auth/getUser';
 import EventForm from '@/components/forms/EventForm.vue';
 import useNotifications from '@/composables/useNotifications';
 import { useRouter } from 'vue-router';
-import { Timestamp } from 'firebase/firestore';
+import { doc, Timestamp } from 'firebase/firestore';
 import { Notifications, NotificationsType } from '@/interface/Notifications';
 
   const router = useRouter();
@@ -38,21 +38,19 @@ import { Notifications, NotificationsType } from '@/interface/Notifications';
         return;
     }
   */
-    if(!user.value) return;
-    if(!user.value.displayName) return;
+    if(!user.value?.displayName) return;
 
     isPending.value = true;
   /*
     await uploadImage(file.value);
   */  
     const res: any =  await addToEvent({
-      id: '',
       title: title,
       description: description,
       //imageUrl: url.value,
       //filePath: filePath.value,
       location: location,
-      participants: [user.value.uid],
+      participants: [doc(projectStore, 'users', user.value.uid)],
       creatorId: user.value.uid,
       creatorName: user.value.displayName,
       dates: dates,
