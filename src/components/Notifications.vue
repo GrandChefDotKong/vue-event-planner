@@ -19,32 +19,39 @@
   <div class="text-center text-lg" v-else>
     No new notifications
   </div>
+  <button @click="handleActivate">Active Notifications</button>
 </template>
 
 <script setup lang="ts">
 import getUser from '@/composables/auth/getUser';
 import useDocument from '@/composables/useDocument';
 import { Notifications, NotificationsType } from '@/interface/Notifications';
+import useNotifications from '@/composables/useNotifications';
 
-const { user } = getUser();
+  const { user } = getUser();
+  const { activateNotification } = useNotifications();
 
-const handleDelete = async (notif: Notifications) => {
-  
-  if(!user.value) return;
+  const handleActivate = () => {
+    activateNotification();
+  }
 
-  const { updateDocument } = useDocument('users', user.value.uid);
 
-  const currentIndex = user.value.notifications.indexOf(notif);
+  const handleDelete = async (notif: Notifications) => {
+    
+    if(!user.value) return;
 
-  const newNotifications: Notifications[] = 
-    user.value.notifications.filter(
-      (currentValue, index) => index !== currentIndex
-    )
-  
-  await updateDocument({ notifications: newNotifications });
+    const { updateDocument } = useDocument('users', user.value.uid);
+    const currentIndex = user.value.notifications.indexOf(notif);
 
-  user.value.notifications = newNotifications;
-}
+    const newNotifications: Notifications[] = 
+      user.value.notifications.filter(
+        (currentValue, index) => index !== currentIndex
+      )
+    
+    await updateDocument({ notifications: newNotifications });
+
+    user.value.notifications = newNotifications;
+  }
 
 const handleDeleteAll = async () => {
   

@@ -4,6 +4,7 @@ import useCollection from "../useCollection";
 import { isDocumentExist } from "../getDocument";
 import { ref } from "vue";
 
+
   const error = ref<string | null>(null);
 
   const signWithGoogle = async () => {

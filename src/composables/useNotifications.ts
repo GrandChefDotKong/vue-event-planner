@@ -8,6 +8,12 @@ const useNotifications = () => {
   const error = ref<string | null>(null);
   const isPending = ref(false);
 
+  const activateNotification = () => {
+    Notification.requestPermission().then((result) => {
+      new Notification('Hello World', { body: 'Hello Notifications', icon: '' }) 
+    })
+  }
+
   const sendToAll = async (notification: Notifications) => {
     error.value = null;
     isPending.value = true;
@@ -40,7 +46,7 @@ const useNotifications = () => {
     })
   }
     
-  return { sendToAll, sendToParticipants , error };
+  return { sendToAll, sendToParticipants, activateNotification , error };
 }
 
 export default useNotifications;
