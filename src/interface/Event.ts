@@ -5,7 +5,7 @@ interface Event {
     title: string,
     description: string,
     location: string,
-    dates: Timestamp,
+    dates: Timestamp | null,
     creatorId: string,
     creatorName: string,
     participants: DocumentReference[],

@@ -1,5 +1,5 @@
 <template>
-  <div class=" max-h-80 overflow-y-auto" v-if="user">
+  <div class="flex-grow overflow-y-auto" v-if="user">
     <div v-if="document" ref="scrollAuto">
       <div v-for="mess in formatedMess" :key="formatedMess.indexOf(mess)" 
       class="mt-1 flex flex-col items-start">
@@ -10,7 +10,7 @@
         </div>
         <div class="w-fit" v-else>
           <div class="text-primary text-sm ml-1">{{ mess.userName }}</div>
-          <div class="text-black text-center bg-gray rounded-2xl px-2 py-1">{{ mess.message }}</div>
+          <div class="text-slate-600 text-center bg-white rounded-2xl px-2 py-1">{{ mess.message }}</div>
           <div class="text-xs text-right mr-1">{{ mess.createdAt }} ago</div>
         </div>
       </div>

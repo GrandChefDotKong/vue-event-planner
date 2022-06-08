@@ -6,7 +6,7 @@
       placeholder="Type your message here"
       v-model="message"
       @keypress.enter.prevent="handleSubmit"
-      class="w-full bg-gray rounded-l-lg pl-2 
+      class="w-full bg-white rounded-l-lg pl-2 
       focus:outline-none focus:shadow-md"
     >
     <button @click.prevent="handleSubmit" class="border-solid border-cyan 

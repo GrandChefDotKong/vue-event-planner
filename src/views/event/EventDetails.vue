@@ -1,7 +1,10 @@
 <template>
-  <div class="px-6 h-full grow flex flex-col justify-around py-3" >
-    <div v-if="event" class="basis-1/3 flex flex-col justify-between text-primary">
-      <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md bg-primary text-white shadow-sm">{{ event?.title }}</h3>
+  <div class="px-6 h-full flex-grow flex flex-col justify-start py-3" >
+    <div v-if="event" class="h-72 flex flex-col justify-between text-primary">
+      <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md 
+      text-primary border-2 border-primary shadow-sm">
+        {{ event.title }}
+      </h3>
       <p>What : {{ event.description }}</p>
       <p v-if="event.dates">When : {{ event.dates.toDate().toDateString() }}
       at : {{ event.dates.toDate().toLocaleTimeString() }}
@@ -22,7 +25,7 @@
       text-white border-2 p-2" v-else @click="removeParticipant">Click to unjoin</button>
       </div>
     </div>
-    <div class="basis-2/3 pt-4">
+    <div class="pt-4 flex-grow flex">
       <chatroom :id="props.id" />
     </div>
   </div>

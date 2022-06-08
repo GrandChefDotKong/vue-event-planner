@@ -1,6 +1,5 @@
 <template>
   <div class="text-center section mt-2 mb-2">
-    <h2 class="py-2 text-violet">Upcoming Events</h2>
     <v-calendar
       class="custom-calendar max-w-full"
       :masks="masks"
@@ -84,6 +83,11 @@ export default {
   & .vc-weekday {
     padding: 5px 0;
     color: #b58900;
+    background-color: #fff;
+  }
+  & .vc-weekday:nth-child(6),
+  & .vc-weekday:nth-child(7) {
+    background-color: #fdf6e3;
   }
   & .vc-day {
     padding: 0 5px 3px 5px;
@@ -92,7 +96,7 @@ export default {
     min-width: var(--day-width);
     &.weekday-1,
     &.weekday-7 {
-      background-color: #fff;
+      background-color: #fdf6e3;
     }
     &:not(.on-bottom) {
       border-bottom: var(--day-border);

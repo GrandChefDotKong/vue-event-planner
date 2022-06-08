@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-between min-h-screen max-h-screen">
     <navbar @toggle-drawer="toggleDrawer" @close-drawer="closeDrawer" />
     <aside
-      class="transform top-0 left-0 w-64 bg-primary_bg rounded-r-md drop-shadow-lg 
+      class="transform top-0 left-0 w-64 bg-white rounded-r-md drop-shadow-lg 
       fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
       :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
       <h3 class="text-center text-white bg-violet text-lg py-1 mb-4">Notifications</h3>

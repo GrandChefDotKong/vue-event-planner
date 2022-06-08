@@ -2,11 +2,11 @@
   <form class="flex flex-col items-center mt-4 bg-inherit" 
   @submit.prevent="handleClick">
       <h2 class="text-cyan">{{ props.formTitle }} Event</h2>
-      <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 
+      <input class="mt-3 px-2 py-1 rounded-md shadow focus:outline-none focus:shadow-md" type="text" 
         placeholder="Event Title" v-model="title" required>
-      <textarea class="mt-3 h-20 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" 
+      <textarea class="mt-3 h-20 px-2 py-1 shadow rounded-md focus:outline-none focus:shadow-md" 
         cols="22" placeholder="Event Description" v-model="description" required></textarea>
-      <input class="mt-3 px-2 py-1 rounded-md focus:outline-none focus:shadow-md" type="text" 
+      <input class="mt-3 px-2 py-1 shadow rounded-md focus:outline-none focus:shadow-md" type="text" 
         placeholder="Event Location" v-model="location" required>
       <v-date-picker color="teal" class="mt-4 px-2 py-1" v-model="dates" mode="dateTime" timezone="" /><br>
     <!--
@@ -24,7 +24,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Event from '@/interface/Event';
-import { Timestamp } from 'firebase/firestore';
 import { timestamp } from '@/firebase/config';
 //import useStorage from '@/composables/useStorage';
 
@@ -38,7 +37,7 @@ import { timestamp } from '@/firebase/config';
     const description = ref(props.event ? props.event.description : '' );
 //    const file = ref(null);
 //    const fileError = ref<string | null>(null);
-    const dates = ref<Date>(props.event ? props.event.dates.toDate() : timestamp.now().toDate());
+    const dates = ref<Date | null>(props.event?.dates ? props.event.dates.toDate() : null/*timestamp.now().toDate()*/);
     const location = ref<string>(props.event ? props.event.location : '' );
     const isPending = ref(false);
 

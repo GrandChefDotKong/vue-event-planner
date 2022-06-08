@@ -31,6 +31,25 @@ export const getDocument = (collectionName: string, id: string) => {
 
   return { document, error };
 }
+type GetExist = (collectionName: string, id: string) => Promise<boolean>
+export const isDocumentExist: GetExist = async (collectionName, id) => {
+
+  const docRef = doc(collection(projectStore, collectionName), id); 
+
+  try {
+    
+    const docSnap = await getDoc(docRef);
+    if(docSnap.exists()) {
+      return true;
+    }
+
+    return false;
+    
+  } catch (err: any) {
+    console.log(err.message);
+    return false;
+  }
+}
 
 export const getDocumentWithRef = async (docRef: DocumentReference) => {
 
