@@ -19,7 +19,7 @@
   <div class="text-center text-lg" v-else>
     No new notifications
   </div>
-  <button @click="handleActivate">Active Notifications</button>
+  <!--<button @click="handleActivate">Active Notifications</button>-->
 </template>
 
 <script setup lang="ts">

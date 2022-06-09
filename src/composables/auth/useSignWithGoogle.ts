@@ -3,6 +3,8 @@ import { projectAuth, timestamp } from "@/firebase/config";
 import useCollection from "../useCollection";
 import { isDocumentExist } from "../getDocument";
 import { ref } from "vue";
+import useNotifications from "../useNotifications";
+import { NotificationsType } from '@/interface/Notifications';
 
 
   const error = ref<string | null>(null);
@@ -11,6 +13,7 @@ import { ref } from "vue";
 
     const provider = new GoogleAuthProvider();
     const { addToCollection } = useCollection('users');
+    const { sendToAll } = useNotifications();
     
     await signInWithPopup(projectAuth, provider).then(async(result) => {
     //  const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -22,7 +25,13 @@ import { ref } from "vue";
           events: [],
           notifications: [],
           lastSignin: timestamp.now()
-        }, result.user.uid)
+        }, result.user.uid);
+
+        sendToAll({
+          type: NotificationsType.user_create,
+          content: `${result.user.displayName} has join the group`,
+        });
+
       }
 
       error.value = null;

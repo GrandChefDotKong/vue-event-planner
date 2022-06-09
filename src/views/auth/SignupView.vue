@@ -47,7 +47,7 @@ import useSignWithGoogle from '@/composables/auth/useSignWithGoogle';
       sendToAll({
         type: NotificationsType.user_create,
         content: `${displayName.value} has join the server`,
-      })
+      });
 
       router.push({ name: 'home' });
     }

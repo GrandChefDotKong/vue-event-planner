@@ -10,8 +10,16 @@ const useNotifications = () => {
 
   const activateNotification = () => {
     Notification.requestPermission().then((result) => {
-      new Notification('Hello World', { body: 'Hello Notifications', icon: '' }) 
+      if(result === 'granted') {
+        console.log(Notification.permission.toString());
+      }
     })
+  }
+
+  const sendNotification = () => {
+    if(Notification.permission.toString() === 'granted') {
+      new Notification('Hello World', { body: 'Hello Notifications', icon: '' })
+    }
   }
 
   const sendToAll = async (notification: Notifications) => {
@@ -46,7 +54,7 @@ const useNotifications = () => {
     })
   }
     
-  return { sendToAll, sendToParticipants, activateNotification , error };
+  return { sendToAll, sendToParticipants, activateNotification, sendNotification, error };
 }
 
 export default useNotifications;
