@@ -4,7 +4,6 @@
       class="custom-calendar max-w-full"
       :masks="masks"
       :attributes="propsToAttributes"
-      disable-page-swipe
       is-expanded
     >
       <template v-slot:day-content="{ day, attributes }">
@@ -63,7 +62,7 @@ export default {
 }
 :deep(.custom-calendar.vc-container) {
   --day-width: 40px;
-  --day-height: 60px;
+  --day-height: 65px;
   --weekday-bg: #fdf6e3;
   --weekday-border: 1px solid #b58900;
   border-radius: 0;

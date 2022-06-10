@@ -12,6 +12,7 @@ let app: any;
 
 onAuthStateChanged(projectAuth, () => {
     if(!app) {
-        app = createApp(App).use(router).use(VCalendar, {}).mount('#app');
+        app = createApp(App).use(router)
+        .use(VCalendar, {}).mount('#app');
     }
 })

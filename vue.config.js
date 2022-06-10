@@ -6,8 +6,7 @@ module.exports = defineConfig({
     themeColor: '#2aa198',
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
-      swSrc: './src/sw.js',
-      swDest: 'service-worker.js'
+      swSrc: 'src/service-worker.js',
     },
   },
 })

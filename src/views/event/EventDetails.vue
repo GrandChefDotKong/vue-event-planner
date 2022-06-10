@@ -1,6 +1,7 @@
 <template>
-  <div class="px-6 h-full flex-grow flex flex-col justify-start py-3" >
-    <div v-if="event" class="h-72 flex flex-col justify-between text-primary">
+  <div class="px-6 h-full flex flex-col justify-start py-3" >
+    <div v-if="event" class="flex-grow flex 
+    flex-col justify-between text-primary">
       <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md 
       text-primary border-2 border-primary shadow-sm">
         {{ event.title }}
@@ -18,16 +19,18 @@
         </li>
       </ul>
       <div v-else>No participants</div>
-      <div class="self-center">
-        <button class="text-sm border-solid shadow-md border-cyan rounded-md bg-cyan 
+      <div class="mx-auto w-fit mb-2">
+        <button class="mr-2 text-sm border-solid shadow-md border-cyan rounded-md bg-cyan 
       text-white border-2 p-2" v-if="!isParticipating" @click="addParticipant">Click to join</button>
-        <button class="text-sm shadow-md border-solid border-cyan rounded-md bg-cyan 
+        <button class="mr-2 text-sm shadow-md border-solid border-cyan rounded-md bg-cyan 
       text-white border-2 p-2" v-else @click="removeParticipant">Click to unjoin</button>
+       <button class="text-sm border-solid shadow-md border-cyan rounded-md bg-white 
+      text-cyan border-2 p-2" v-if="true" @click="handleInterested">Interested</button>
+        <button class="text-sm shadow-md border-solid border-cyan rounded-md bg-cyan 
+      text-white border-2 p-2" v-else @click="">Unflollow</button>
       </div>
     </div>
-    <div class="pt-4 flex-grow flex">
-      <chatroom :id="props.id" />
-    </div>
+    <chatroom :id="props.id" />
   </div>
 </template>
 
@@ -91,6 +94,10 @@ import { NotificationsType } from '@/interface/Notifications';
       participants: [...event.value.participants, doc(projectStore,'users', user.value.uid)]
     });
 
+  }
+
+  const handleInterested = () => {
+    alert('Coming soon ...');
   }
 
   const removeParticipant = async () => { 

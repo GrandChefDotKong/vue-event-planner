@@ -1,5 +1,6 @@
 <template>
-  <div v-if="document" class="bg-primary_bg p-4 rounded-3xl flex-grow flex flex-col justify-start">
+  <div v-if="document" class="bg-primary_bg p-4 rounded-3xl
+  flex flex-col justify-start">
     <chat-window :id="props.id" :document="document" />
     <new-chat-form :id="props.id" :document="document"/>
   </div>

@@ -17,11 +17,15 @@
 </template>
 
 <script setup lang="ts">
-  import useNotifications from '@/composables/useNotifications';
+import useNotifications from '@/composables/useNotifications';
+
   const { activateNotification, sendNotification } = useNotifications();
 
-  const handleActivate = () => {
+
+
+  const handleActivate = async () => {
     activateNotification();
+
   }
 
   const handleSend = () => {

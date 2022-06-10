@@ -9,11 +9,7 @@ const useNotifications = () => {
   const isPending = ref(false);
 
   const activateNotification = () => {
-    Notification.requestPermission().then((result) => {
-      if(result === 'granted') {
-        console.log(Notification.permission.toString());
-      }
-    })
+    
   }
 
   const sendNotification = () => {
