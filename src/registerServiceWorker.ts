@@ -3,9 +3,8 @@
 import { register } from 'register-service-worker';
 
 if (process.env.NODE_ENV === 'production') {
-  //register(`OneSignalSDKWorker.js`, {
-  //register(`firebase-messaging-sw.js`, {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+  register(`firebase-messaging-sw.js`, {
+  //register(`${process.env.BASE_URL}service-worker.js`, {
     ready () {
       console.log(
         'App is being served from cache by a service worker.\n' +

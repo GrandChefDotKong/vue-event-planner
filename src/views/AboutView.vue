@@ -9,27 +9,10 @@
       <li>Animations & Transitions</li>
       <li>Modify name</li>
       <li>Better notifications</li>
-      <li>...</li>
-      <button @click="handleActivate">Active Notifications</button><br>
-      <button @click="handleSend">send Notifications</button>
-    </ul>
+      <li>...</li></ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import useNotifications from '@/composables/useNotifications';
-
-  const { activateNotification, sendNotification } = useNotifications();
-
-
-
-  const handleActivate = async () => {
-    activateNotification();
-
-  }
-
-  const handleSend = () => {
-    sendNotification();
-  }
 
 </script>

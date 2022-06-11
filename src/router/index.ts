@@ -9,8 +9,7 @@ import CreateEventView from '../views/event/CreateEventView.vue';
 import EventDetails from '../views/event/EventDetails.vue';
 import UpdateEvent from '../views/event/UpdateEvent.vue';
 import UserEvents from '../views/event/UserEvents.vue';
-
-
+import GroupView from '../views/event/GroupView.vue';
 
 import { projectAuth } from '@/firebase/config';
 
@@ -73,6 +72,12 @@ const routes = [
     path: '/about',
     name: 'about',
     component: AboutView,
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/group',
+    name: 'group',
+    component: GroupView,
     beforeEnter: requireAuth
   },
 ]
