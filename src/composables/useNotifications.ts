@@ -13,9 +13,6 @@ const useNotifications = () => {
   }
 
   const sendNotification = () => {
-    if(Notification.permission.toString() === 'granted') {
-      new Notification('Hello World', { body: 'Hello Notifications', icon: '' })
-    }
   }
 
   const sendToAll = async (notification: Notifications) => {

@@ -10,9 +10,31 @@
       <li>Modify name</li>
       <li>Better notifications</li>
       <li>...</li></ul>
+      <button class="boder boder-cyan p-1" @click="addNotif">Add notif</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Notifications, NotificationsType } from '@/interface/Notifications';
+import useNotifications from '@/composables/useNotifications';
+import { projectStore } from '@/firebase/config';
+import { doc } from '@firebase/firestore';
+import getUser from '@/composables/auth/getUser';
+
+  const { sendToParticipants } = useNotifications();
+  const { user } = getUser()
+
+  const addNotif = () => {
+    if(!user.value?.uid) return;
+
+    sendToParticipants({
+        type: NotificationsType.event_create,
+        content: `This is a test, don't worry`,
+        link: `/events/trJNLbUy9E3ebNguBeOC`
+      }, [doc(projectStore, 'users', user.value.uid),]
+      );
+  }
+
+
 
 </script>

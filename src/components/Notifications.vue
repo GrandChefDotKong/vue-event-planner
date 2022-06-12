@@ -1,5 +1,6 @@
 <template>
-  <div v-if="user?.notifications.length" class="mx-2 flex flex-col items-center">
+  <div v-if="user?.notifications.length" class="mx-2 flex flex-col items-center 
+  overflow-y-auto">
     <button class=" py-1 px-2 text-white rounded-md shadow-md bg-violet" @click="handleDeleteAll">
       Delete All
     </button>

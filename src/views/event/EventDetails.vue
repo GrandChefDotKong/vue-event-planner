@@ -48,6 +48,7 @@ import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
 
   const props = defineProps<{ id: string }>();
+  
   const { document: event, error }: { document: Ref<Event>, error: Ref } = getDocument('events', props.id);
   const { updateDocument } = useDocument('events', props.id);
   const { sendToParticipants } = useNotifications();
