@@ -18,21 +18,24 @@ import { NotificationsType } from '@/interface/Notifications';
     await signInWithPopup(projectAuth, provider).then(async(result) => {
     //  const credential = GoogleAuthProvider.credentialFromResult(result);
 
-      if(!isDocumentExist('users', result.user.uid)) {
-        await addToCollection({
-          email: result.user.email,
-          displayName: result.user.displayName,
-          events: [],
-          notifications: [],
-          lastSignin: timestamp.now()
-        }, result.user.uid);
+    const isUserExist = await isDocumentExist('users', result.user.uid);
 
-        sendToAll({
-          type: NotificationsType.user_create,
-          content: `${result.user.displayName} has join the group`,
-        });
+    if(!isUserExist) {
+      
+      await addToCollection({
+        email: result.user.email,
+        displayName: result.user.displayName,
+        events: [],
+        notifications: [],
+        lastSignin: timestamp.now()
+      }, result.user.uid);
 
-      }
+      sendToAll({
+        type: NotificationsType.user_create,
+        content: `${result.user.displayName} has join the group`,
+      });
+
+    }
 
       error.value = null;
       return error.value;
