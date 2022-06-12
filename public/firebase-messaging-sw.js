@@ -19,5 +19,6 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.7/firebase-messaging.js')
     else console.log('No registration token available')
   }).catch((err) => console.log('error while retrieving token', err));
 
+  
 
 

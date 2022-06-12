@@ -4,9 +4,5 @@ module.exports = defineConfig({
   pwa: {
     name: 'Tenshiba Calendar',
     themeColor: '#2aa198',
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      swSrc: 'src/service-worker.js',
-    },
   },
 })
