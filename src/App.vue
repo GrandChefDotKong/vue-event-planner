@@ -7,7 +7,9 @@
       fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
       :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
       <div class="flex-grow flex bg-white flex-col">
-        <h3 class="text-center text-white bg-violet text-lg py-1 mb-4">Notifications</h3>
+        <h3 class="text-center text-white bg-violet text-lg py-1 mb-4">
+          Notifications
+        </h3>
         <notifications />
       </div>
       <div @click="closeDrawer" class="w-20 bg-transparent"></div>
@@ -22,7 +24,7 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
 import Notifications from './components/Notifications.vue';
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 
   const isOpen = ref(false);
 

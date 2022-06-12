@@ -49,7 +49,8 @@
 import useSignout from "@/composables/auth/useSignout";
 import getUser from "@/composables/auth/getUser";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { watch, ref } from "vue";
+
 
   const { error, signout, isPending } = useSignout();
   const { user } = getUser();
@@ -70,6 +71,7 @@ import { ref } from "vue";
     emit('toggleDrawer');
   }
 
+  watch(router.currentRoute,() => isOpen.value = false)
 
   const handleSignout = async () => {
       await signout();
