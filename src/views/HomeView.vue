@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-auto">
+  <div class="grow">
     <h2 class="text-center text-primary border-2 border-primary mx-4 mt-2 mb-1 text-lg rounded-md">
       Tenshiba Events Calendar
     </h2>
@@ -15,7 +15,7 @@
     </div>
 -->
   </div>
-  <div class="h-full flex-auto mt-2">
+  <div class="h-full flex flex-col mt-2">
     <MonthCalendar :events="docs"/>
   </div>
 </template>

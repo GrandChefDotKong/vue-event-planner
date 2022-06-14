@@ -22,7 +22,7 @@
   <aside class="transform top-0 left-0 w-screen max-w-screen rounded-r-md drop-shadow-lg 
   flex flex-row fixed h-screen overflow-auto ease-in-out transition-all duration-300 z-30"
   :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
-    <div v-if="user" class="flex-grow flex bg-cyan flex-col justify-between pb-28 items-center text-white">
+    <div id="navbar" v-if="user" class="flex-grow flex bg-cyan flex-col justify-between pb-28 items-center text-white">
       <h3 class="text-2xl w-full text-center bg-white text-cyan">Menu</h3>
       <router-link class="" :to="{ name: 'user-events', params: { id: user.uid } }">
         <img class="h-8 w-8 mx-auto" src="@/assets/user.svg" alt="user">My Page
