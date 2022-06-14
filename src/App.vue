@@ -14,7 +14,9 @@
       </div>
       <div @click="closeDrawer" class="w-20 bg-transparent"></div>
     </aside>
-    <router-view :key="route.fullPath" />
+    <div class="h-full flex flex-col">
+      <router-view :key="route.fullPath" />
+    </div>
     <div class="h-fit mt-auto mb-1 text-violet text-center text-xs">
       <router-link :to="{ name: 'about' }">copyright@adrien.pauchet</router-link>
     </div>
