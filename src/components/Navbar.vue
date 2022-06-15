@@ -1,7 +1,10 @@
 <template>
   <div class="w-screen h-fit m-0 py-1 rounded-b-lg bg-cyan text-white">
     <nav class="w-full flex flex-row justify-between py-2 text-xs">
-      <router-link :to="{ name: 'home' }" class="ml-6 w-fit">
+      <button class="ml-6" @click="handleClick">
+        <img class="h-8 w-8 mx-auto" src="@/assets/bell.svg" alt="notifications">Notice
+      </button>
+      <router-link :to="{ name: 'home' }" class="w-fit">
         <img class="h-8 w-8 mx-auto" src="@/assets/calendar.svg" alt="logo">Home
       </router-link>
       <div class="mr-6 w-fit">
@@ -25,7 +28,7 @@
     <div id="navbar" v-if="user" class="flex-grow flex bg-cyan flex-col justify-between pb-28 items-center text-white">
       <h3 class="text-2xl w-full text-center bg-white text-cyan">Menu</h3>
       <router-link class="" :to="{ name: 'user-events', params: { id: user.uid } }">
-        <img class="h-8 w-8 mx-auto" src="@/assets/user.svg" alt="user">My Page
+        <img class="h-8 w-8 rounded-xl mx-auto" src="@/assets/default-avatar.svg" alt="user">My Page
       </router-link>
       <router-link class="" :to="{ name: 'group', params: { id: user.uid } }">
         <img class="h-8 w-8 mx-auto" src="@/assets/group.svg" alt="user">Group Info
@@ -37,9 +40,6 @@
         <img class="h-8 w-8 mx-auto" src="@/assets/logout.svg" alt="logout">Sign Out
       </button>
       <button v-else disabled>Loading</button>
-      <button @click="handleClick">
-        <img class="h-8 w-8 mx-auto" src="@/assets/bell.svg" alt="">Notifications
-      </button>
     </div>
     <div @click="closeMenu" class="w-20 bg-transparent"></div>
   </aside>

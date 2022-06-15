@@ -4,15 +4,16 @@ import AboutView from '../views/AboutView.vue';
 // Auth
 import SigninView from '../views/auth/SigninView.vue';
 import SignupView from '../views/auth/SignupView.vue';
-// Event
-import CreateEventView from '../views/event/CreateEventView.vue';
-import EventDetails from '../views/event/EventDetails.vue';
-import UpdateEvent from '../views/event/UpdateEvent.vue';
-import UserEvents from '../views/event/UserEvents.vue';
-import GroupView from '../views/event/GroupView.vue';
+// Events
+import CreateEventView from '../views/events/CreateEventView.vue';
+import EventDetails from '../views/events/EventDetails.vue';
+import UpdateEvent from '../views/events/UpdateEvent.vue';
+import GroupView from '../views/events/GroupView.vue';
+// Users
+import UserProfile from '../views/users/UserProfile.vue';
+import UserUpdate from '../views/users/UserUpdate.vue';
 
 import { projectAuth } from '@/firebase/config';
-
 
 const requireAuth = (to: any, from: any, next: any) => {
   let user = projectAuth.currentUser;
@@ -55,18 +56,24 @@ const routes = [
     props: true,
   },
   {
-    path: '/users/:id',
-    name: 'user-events',
-    component: UserEvents,
-    beforeEnter: requireAuth,
-    props: true,
-  },
-  {
-    path: '/update/:id',
+    path: '/events/update/:id',
     name: 'update-event',
     component: UpdateEvent,
     beforeEnter: requireAuth,
     props: true,
+  },
+  {
+    path: '/users/:id',
+    name: 'user-events',
+    component: UserProfile,
+    beforeEnter: requireAuth,
+    props: true,
+  },
+  {
+    path: '/users/update',
+    name: 'update-user',
+    component: UserUpdate,
+    beforeEnter: requireAuth,
   },
   {
     path: '/about',

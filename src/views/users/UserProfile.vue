@@ -1,8 +1,17 @@
 <template>
-  <div class="flex flex-col items-center flex-grow justify-start my-2">
-    <h2 class="text-cyan text-center h-12 mt-2" v-if="user">
-     {{ user.displayName.toUpperCase() }} Page</h2>
-    <h3 class="text-primary w-fit mb-2">Event I created : </h3>
+  <div v-if="user" class="flex flex-col items-center flex-grow justify-start my-2">
+    <img class="shadow-md rounded-2xl" v-if="user.photoURL" :src="user.photoURL" alt="user-avatar">
+    <h2 class="text-cyan text-center h-12 mt-2" >
+      {{ user.displayName.toUpperCase() }}
+    </h2>
+    <h3 class="text-primary w-fit mb-2">Next Event : </h3>
+    <router-link v-if="nextEvent" :to="{ name: 'event-details', params: { id: nextEvent.id } }">
+      <div class="bg-violet text-white text-lg px-2 py-1 rounded-md">
+        {{ `${nextEvent.dates?.toDate().toLocaleDateString('default', { day: 'numeric', month: 'long' })} - 
+        ${nextEvent.title}` }}
+      </div>
+    </router-link>
+    <h3 class="text-primary w-fit my-2">Event I created : </h3>
     <div class="flex flex-col justify-center" v-if="createdByUser && createdByUser.length">
       <div class="flex flex-row justify-start rounded-md shadow-md bg-white 
       text-primary p-2 m-3" v-for="event in createdByUser">
@@ -22,17 +31,17 @@
     </div>
     <div v-else>You haven't created any event yet.<br>
       Create you first event :<br>
-      <div class="bg-violet text-xs mt-2 mx-auto w-fit px-2 py-1 border-violet border-2 rounded-md shadow-md text-white">
+      <div class="bg-cyan text-xs mt-2 mx-auto w-fit px-2 py-1 rounded-md shadow-md text-white">
         <router-link :to="{ name: 'create-event' }">
           <img class="h-7 w-7 mx-auto" src="@/assets/create.svg" alt="create">Create An Event
         </router-link>
       </div>
     </div>
     <h3 class="text-primary w-fit mt-4">Event I joined : </h3>
-    <div class="flex flex-row flex-wrap justify-center" 
+    <div class="h-30 flex mx-4 rounded-md flex-row flex-wrap justify-center bg-primary_bg overflow-y-auto" 
     v-if="joinedByUser && joinedByUser.length">
       <div class="flex flex-row rounded-md shadow-md bg-white 
-      text-primary w-fit p-2 m-3" v-for="event in joinedByUser">
+      text-primary w-fit h-fit p-2 m-3" v-for="event in joinedByUser">
         <h3 class="w-fit">
           <router-link :to="{ name: 'event-details', params: { id: event.id } }">
             {{ event.title }}
@@ -43,6 +52,12 @@
     <div v-else>You haven't joined any events yet.<br>
       Check the event available  
     </div>
+    <h3 class="text-primary w-fit mt-4">Edit my profile :</h3>
+    <div class="bg-cyan text-xs mt-2 mx-auto w-fit px-2 py-1 rounded-md shadow-md text-white">
+        <router-link :to="{ name: 'update-user' }">
+          <img class="h-7 w-7 mx-auto" src="@/assets/edit.svg" alt="create">Update
+        </router-link>
+      </div>
   </div>
 </template>
 
@@ -53,7 +68,7 @@ import useDocument from '@/composables/useDocument';
 import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
 import Event from '@/interface/Event';
-import { computed } from '@vue/reactivity';
+import { computed, ComputedRef } from '@vue/reactivity';
 import { doc } from 'firebase/firestore';
 import { projectStore } from '@/firebase/config';
 
@@ -78,11 +93,32 @@ import { projectStore } from '@/firebase/config';
 
     const docRef = doc(projectStore, 'users', user.value.uid);
 
-
     return docs.value.filter((document: Event) => {
       return document.participants.find((participant) => 
         participant.path === docRef.path);
     })
+  });
+
+  const nextEvent: ComputedRef<Event | null> = computed(() => {
+    if(!docs.value || !user.value) return null;
+
+    const docRef = doc(projectStore, 'users', user.value.uid);
+    const today = new Date();
+
+    let nextEvent: Event | null | undefined = null;
+
+    docs.value.sort((a, b) => a.dates - b.dates);
+    
+    docs.value.forEach((document: Event) => {
+      if(!document.dates || document.dates.toDate() < today || nextEvent) return;
+
+      if(document.participants.find((participant) => 
+      participant.path === docRef.path )) {
+        nextEvent = document;
+      }
+    });
+
+    return nextEvent;
   });
 
   const handleDelete = async (event: Event) => {

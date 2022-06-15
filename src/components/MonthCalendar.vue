@@ -25,12 +25,12 @@
       <div class="my-4 mx-2" v-for="day in month.getDate()" :key="day">
         <h3 id="today" class="bg-magenta text-white font-bold border border-primary text-lg text-center"
         v-if="today.getFullYear() === month.getFullYear() && today.getMonth() === month.getMonth() && today.getDate() === day">
-          TODAY : {{ new Date(month.getFullYear(), month.getMonth()+1, day).toLocaleDateString(
+          TODAY : {{ today.toLocaleDateString(
             'default', { weekday: 'long', day: 'numeric' }
           ) }}
         </h3>
         <h3 v-else class="bg-white text-primary border border-primary text-lg text-center">
-          {{ new Date(month.getFullYear(), month.getMonth()+1, day).toLocaleDateString(
+          {{ new Date(month.getFullYear(), month.getMonth(), day).toLocaleDateString(
             'default', { weekday: 'long', day: 'numeric' }
           ) }}
         </h3>

@@ -26,6 +26,7 @@ const setUser = async(id: string) => {
       }
 
       user.value = { ...snap.data(), uid: snap.id } as User;
+      
       error.value = null;
 
     }, (err) => {
@@ -40,7 +41,7 @@ const setUser = async(id: string) => {
 }
 
 if(projectAuth.currentUser) {
-  setUser(projectAuth.currentUser.uid)
+  setUser(projectAuth.currentUser.uid);
 }
 
 const getUser = () => {

@@ -5,6 +5,9 @@ import { isDocumentExist } from "../getDocument";
 import { ref } from "vue";
 import useNotifications from "../useNotifications";
 import { NotificationsType } from '@/interface/Notifications';
+import User from "@/interface/User";
+
+import useDocument from "../useDocument";
 
 
   const error = ref<string | null>(null);
@@ -25,16 +28,21 @@ import { NotificationsType } from '@/interface/Notifications';
       await addToCollection({
         email: result.user.email,
         displayName: result.user.displayName,
-        events: [],
+        photoURL: result.user.photoURL,
         notifications: [],
         lastSignin: timestamp.now()
-      }, result.user.uid);
+      } , result.user.uid);
 
       sendToAll({
         type: NotificationsType.user_create,
         content: `${result.user.displayName} has join the group`,
       });
 
+    }
+
+    if(!result.user.photoURL) {
+      const { updateDocument } = useDocument('users', result.user.uid);
+      await updateDocument({ photoURL: result.user.photoURL })
     }
 
       error.value = null;

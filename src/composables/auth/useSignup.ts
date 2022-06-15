@@ -6,7 +6,7 @@ import useCollection from "../useCollection";
   const error = ref<string | null>(null);
   const isPending = ref(false);
 
-  const signup = async (email: string, password: string, displayName: string) => {
+  const signup = async (email: string, password: string, displayName: string, photoURL?: string) => {
     error.value = null;
     isPending.value = true;
 
@@ -21,7 +21,7 @@ import useCollection from "../useCollection";
       await addToCollection({
         email: res.user.email,
         displayName: displayName,
-        events: [],
+        photoURL: photoURL ? photoURL : null,
         notifications: [],
         lastSignin: timestamp.now()
       }, res.user.uid)

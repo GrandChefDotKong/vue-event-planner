@@ -18,6 +18,7 @@
     <img class="w-6 h-6 inline" src="@/assets/logo-google.svg" alt="google">
   </button>
 </template>
+
 <script setup lang="ts">
 import { ref } from '@vue/reactivity';
 import useSignup from '@/composables/auth/useSignup';
@@ -53,7 +54,3 @@ import useSignWithGoogle from '@/composables/auth/useSignWithGoogle';
     }
   }
 </script>
-
-<style>
-
-</style>
