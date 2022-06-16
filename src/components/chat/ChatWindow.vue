@@ -1,5 +1,5 @@
 <template>
-  <div class="h-80 overflow-y-auto" v-if="user">
+  <div class="h-64 overflow-y-auto" v-if="user">
     <div v-if="document" ref="scrollAuto">
       <div v-for="mess in formatedMess" :key="formatedMess.indexOf(mess)" 
       class="mt-1 flex flex-col items-start">

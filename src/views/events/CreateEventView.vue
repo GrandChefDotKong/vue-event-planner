@@ -1,5 +1,9 @@
 <template>
-  <event-form  formTitle="Create" :handleSubmit="handleSubmit" />
+  <event-form  
+    formTitle="Create" 
+    :handleSubmit="handleSubmit"
+    :date="props?.date"
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,6 +19,8 @@ import { doc, Timestamp } from 'firebase/firestore';
 import { Notifications, NotificationsType } from '@/interface/Notifications';
 
   const router = useRouter();
+
+  const props = defineProps<{ date?: string }>();
 
   //const { uploadImage, url, filePath } = useStorage();
   const { error, addToCollection: addToEvent } = useCollection('events');

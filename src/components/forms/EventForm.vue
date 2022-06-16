@@ -30,14 +30,18 @@ import { timestamp } from '@/firebase/config';
     const props = defineProps<{
       formTitle: string,
       event?: Event,
-      handleSubmit: Function
+      handleSubmit: Function,
+      date?: string
     }>();
 
     const title = ref(props.event ? props.event.title : '' );
     const description = ref(props.event ? props.event.description : '' );
 //    const file = ref(null);
 //    const fileError = ref<string | null>(null);
-    const dates = ref<Date | null>(props.event?.dates ? props.event.dates.toDate() : null/*timestamp.now().toDate()*/);
+    const dates = ref<Date | null>(
+      props.event?.dates ? props.event.dates.toDate() : 
+      props?.date ? new Date(parseInt(props.date))  : null
+    );
     const location = ref<string>(props.event ? props.event.location : '' );
     const isPending = ref(false);
 

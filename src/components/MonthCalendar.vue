@@ -49,7 +49,15 @@
             </div>
           </router-link>
         </div>
-        <div class="text-center mx-12 my-1" v-else>No event today</div>
+        <div v-else class="w-fit mx-auto">
+          <router-link :to="{ name: 'create-event', params: 
+          { date: new Date(month.getFullYear(), month.getMonth(), day).getTime() } }">
+            <div class="bg-cyan rounded-md mx-auto shadow-md text-center text-white w-fit pt-2 px-2 pb-1 my-2">
+              <img class="h-6 w-6 mx-auto" src="@/assets/create.svg" alt="create">
+              <span class="text-white text-xs">Add an event</span>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>

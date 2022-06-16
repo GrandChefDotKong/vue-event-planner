@@ -1,8 +1,8 @@
 import { ref } from "vue";
 import { projectAuth, timestamp } from '@/firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import useCollection from "../useCollection";
-import useStorage from "../useStorage";
+import useCollection from '../useCollection';
+import useStorage from '../useStorage';
 
   const error = ref<string | null>(null);
   const isPending = ref(false);

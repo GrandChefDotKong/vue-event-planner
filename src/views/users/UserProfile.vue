@@ -1,6 +1,6 @@
 <template>
   <div v-if="user" class="flex flex-col items-center flex-grow justify-start my-2">
-    <img class="shadow-md w-32 h-32 rounded-2xl" v-if="user.photoURL" :src="user.photoURL" alt="user-avatar">
+    <img class="shadow-md h-32 w-auto rounded-2xl" v-if="user.photoURL" :src="user.photoURL" alt="user-avatar">
     <h2 class="text-cyan text-center h-12 mt-2" >
       {{ user.displayName.toUpperCase() }}
     </h2>

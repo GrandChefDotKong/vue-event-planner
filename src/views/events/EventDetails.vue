@@ -1,25 +1,29 @@
 <template>
   <div class="px-6 h-full flex flex-col justify-start py-3" >
-    <div v-if="event" class="flex-grow flex 
+    <div v-if="event" class="flex-grow flex
     flex-col justify-between text-primary">
       <h3 class="self-center px-2 mb-2 py-1 text-lg w-fit rounded-md 
       text-primary border-2 border-primary shadow-sm">
         {{ event.title }}
       </h3>
-      <p>What : {{ event.description }}</p>
+      <p class="text-center">{{ event.description }}</p>
       <p v-if="event.dates">When : {{ event.dates.toDate().toDateString() }}
       at : {{ event.dates.toDate().toLocaleTimeString() }}
       </p>
       <p v-else>When : not decided yet</p>
       <p>Where : {{ event.location }}</p>
-      <h3 class="mb-1">List of participants : </h3>
-      <ul class="flex flex-row mb-1" v-if="participants.length">
-        <li class="ml-2 text-violet" v-for="participant in participants">
-          {{ participant.displayName }}, 
-        </li>
-      </ul>
+      <h3 class="text-primary w-fit ml-2">Participants :</h3>
+      <div class="h-fit p-4 rounded-2xl bg-primary_bg flex flex-row gap-2 
+      justify-start items-start overflow-x-auto" v-if="participants.length">
+        <div class="w-fit min-w-[4rem] h-full flex flex-col items-center rounded-md shadow-md bg-white 
+        border border-primary text-primary p-2" v-for="member in participants">
+          <img class="h-9 w-9 rounded-lg" v-if="member.photoURL" :src="member.photoURL" alt="avatar">  
+          <img class="w-auto h-9 rounded-lg" v-else src="@/assets/default-avatar.svg" alt="avatar">  
+          <span class="text-center my-auto text-sm h-fit w-full">{{ member.displayName }}</span>
+        </div>
+      </div>
       <div v-else>No participants</div>
-      <div class="mx-auto w-fit mb-2">
+      <div class="mx-auto w-fit m-2">
         <button class="mr-2 text-sm border-solid shadow-md border-cyan rounded-md bg-cyan 
       text-white border-2 p-2" v-if="!isParticipating" @click="addParticipant">Click to join</button>
         <button class="mr-2 text-sm shadow-md border-solid border-cyan rounded-md bg-cyan 

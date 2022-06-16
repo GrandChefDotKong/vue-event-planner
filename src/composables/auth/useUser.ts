@@ -12,7 +12,8 @@ import { collection, doc, updateDoc } from "firebase/firestore";
     return projectAuth.currentUser.providerData[0].providerId;    
   }
 
-  const updateUser = async (email: string, password: string, displayName: string) => {
+  const updateUser = async (email: string, password: string, 
+    displayName: string, photoURL: string | null = null, filePath: string | null) => {
     
     if(!projectAuth.currentUser) return;
 
@@ -25,7 +26,7 @@ import { collection, doc, updateDoc } from "firebase/firestore";
 
 //    await updateProfile(projectAuth.currentUser, { displayName });
 
-      await updateDoc(docRef, { displayName });
+      await updateDoc(docRef, { displayName, photoURL, filePath});
 
 /*    
       await signInWithEmailAndPassword(projectAuth, email, password).then(async(userCredential) => {

@@ -6,6 +6,7 @@ interface User {
     email: string,
     lastSignin: Timestamp,
     photoURL: string | null,
+    filePath?: string,
     notifications: Notifications[],
     uid: string
 }

@@ -43,10 +43,11 @@ const routes = [
     component: SignupView
   },
   {
-    path: '/events/create',
+    path: '/events/create/:date?',
     name: 'create-event',
     component: CreateEventView,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuth,
+    props: true,
   },
   {
     path: '/events/:id',
@@ -63,7 +64,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/users/:id',
+    path: '/users/:id?',
     name: 'user-events',
     component: UserProfile,
     beforeEnter: requireAuth,

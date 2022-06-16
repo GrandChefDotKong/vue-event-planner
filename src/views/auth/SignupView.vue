@@ -5,8 +5,11 @@
     <input class="mt-3 shadow rounded-md px-2 py-1 focus:outline-none focus:shadow-md" type="text" placeholder="Display Name" v-model="displayName">
     <input class="mt-3 shadow rounded-md px-2 py-1 focus:outline-none focus:shadow-md" type="text" placeholder="Email" v-model="email">
     <input class="mt-3 shadow rounded-md px-2 py-1 focus:outline-none focus:shadow-md" type="password" placeholder="Password" v-model="password">
-    <label>Upload profile picture</label>
-    <input type="file" @change="handleChange" required>
+    <label class="cursor-pointer bg-cyan rounded-md shadow-md p-2 mb-2">
+      <img class="w-7 h-7 mx-auto" src="@/assets/photo.svg" alt="picture">
+      <span class="text-white">Select a picture</span>
+      <input class="hidden" type="file" @change="handleChange" required>
+    </label>
     <div v-if="fileError" class="error">{{ fileError }}</div>
     <div v-if="error" class="error">{{ error }}</div>
     <button class="border-solid shadow-md border-cyan rounded-md bg-cyan 
@@ -14,9 +17,10 @@
     <button class="border-solid shadow-md border-cyan rounded-md bg-cyan 
     text-white border-2 p-2 mt-3" v-if="isPending" disabled>Loading</button>
   </form>
+  <p class="text-cyan text-center mt-4">or</p>
   <button @click="connectWithGoogle" 
   class="border-solid w-fit text-cyan shadow-md border-cyan rounded-md 
-  bg-white self-center border-2 p-2 mt-5">
+  bg-white self-center border-2 p-2 mt-2">
     Sign with
     <img class="w-6 h-6 inline" src="@/assets/logo-google.svg" alt="google">
   </button>

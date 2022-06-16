@@ -1,17 +1,17 @@
 <template>
   <div class="w-screen h-fit m-0 py-1 rounded-b-lg bg-cyan text-white">
     <nav class="w-full flex flex-row justify-between py-2 text-xs">
-      <button class="ml-6" @click="handleClick">
+      <button v-if="user" class="ml-6" @click="handleClick">
         <img class="h-8 w-8 mx-auto" src="@/assets/bell.svg" alt="notifications">Notice
       </button>
-      <router-link :to="{ name: 'home' }" class="w-fit">
+      <router-link v-if="user" :to="{ name: 'home' }" class="w-fit">
         <img class="h-8 w-8 mx-auto" src="@/assets/calendar.svg" alt="logo">Home
       </router-link>
       <div class="mr-6 w-fit">
         <div v-if="user">
           <img class="h-8 w-8" @click="toggleMenu" src="@/assets/hamburger.svg" alt="Menu">Menu
         </div>
-        <div class="flex h-full w-full flex-row items-center" v-else>
+        <div class="flex h-full w-screen flex-row justify-around items-center" v-else>
           <router-link class="mr-2" :to="{ name: 'signin' }">
             <img class="h-8 w-8 mx-auto" src="@/assets/login.svg" alt="Login">Sign In
           </router-link>
@@ -28,7 +28,7 @@
     <div id="navbar" v-if="user" class="flex-grow flex bg-cyan flex-col justify-between pb-28 items-center text-white">
       <h3 class="text-2xl w-full text-center bg-white text-cyan">Menu</h3>
       <router-link class="" :to="{ name: 'user-events', params: { id: user.uid } }">
-        <img class="h-8 w-8 rounded-xl mx-auto" src="@/assets/default-avatar.svg" alt="user">My Page
+        <img class="h-8 w-8 rounded-xl mx-auto" src="@/assets/user.svg" alt="user">My Page
       </router-link>
       <router-link class="" :to="{ name: 'group', params: { id: user.uid } }">
         <img class="h-8 w-8 mx-auto" src="@/assets/group.svg" alt="user">Group Info
