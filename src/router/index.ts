@@ -65,7 +65,7 @@ const routes = [
   },
   {
     path: '/users/:id?',
-    name: 'user-events',
+    name: 'user-profile',
     component: UserProfile,
     beforeEnter: requireAuth,
     props: true,

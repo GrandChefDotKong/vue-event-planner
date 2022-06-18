@@ -7,11 +7,12 @@
     <div class="h-44 w-5/6 p-4 rounded-md bg-primary_bg grid gap-2 grid-cols-2 
     overflow-y-auto" 
     v-if="members.length">
-      <div class="w-full flex flex-row justify-start items-center rounded-md shadow-md bg-white 
-      border border-primary text-primary p-2" v-for="member in members">
+      <router-link :to="{ name: 'user-profile', params : { id : member.id } }" 
+      class="w-full flex flex-row justify-start items-center rounded-md shadow-md bg-white 
+      border border-primary text-primary p-2" v-for="member in members" :key="member.id">
         <img class="w-8 h-8 rounded-lg" v-if="member.photoURL" :src="member.photoURL" alt="avatar">  
         <span class="text-center w-full">{{ member.displayName }}</span>
-      </div>
+      </router-link>
     </div>
     <h3 class="text-primary w-fit text-xl mt-2">Events List :</h3>
     <p class="mx-4 my-2">Events whitout a date are in :

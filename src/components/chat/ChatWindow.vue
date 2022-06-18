@@ -3,7 +3,7 @@
     <div v-if="document" ref="scrollAuto">
       <div v-for="mess in formatedMess" :key="formatedMess.indexOf(mess)" 
       class="mt-1 flex flex-col items-start">
-        <div class="w-fit self-end" v-if="mess.userId === user.uid">
+        <div class="w-fit self-end" v-if="mess.userId === user.id">
           <div class="text-primary text-sm ml-1">{{ user.displayName }}</div>
           <div class="text-white text-center shadow-md bg-cyan rounded-2xl px-2 py-1">{{ mess.message }}</div>
           <div class="text-xs text-right mr-1">{{ mess.createdAt }} ago</div>

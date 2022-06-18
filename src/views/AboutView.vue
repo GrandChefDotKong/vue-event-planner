@@ -1,40 +1,74 @@
 <template>
-  <div class="flex flex-col items-center mt-5">
-    <h1 class="w-fit text-violet text-lg mb-2">About</h1>
-    <p>I will publish here all the updates.</p>
-    <ul class="text-left mt-4 w-fit list-disc">
-      <h3 class="text-center mb-2 underline">To do : </h3>
-      <li>Add google map</li>
-      <li>Different colors for event</li>
-      <li>Animations & Transitions</li>
-      <li>Modify name</li>
-      <li>Better notifications</li>
-      <li>...</li></ul>
-      <button class="boder boder-cyan p-1" @click="addNotif">Add notif</button>
+  <div class="">
+    <div class="google-map" id="map"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Notifications, NotificationsType } from '@/interface/Notifications';
-import useNotifications from '@/composables/useNotifications';
+/*
 import { projectStore } from '@/firebase/config';
-import { doc } from '@firebase/firestore';
 import getUser from '@/composables/auth/getUser';
+import { onMounted, ref } from 'vue';
+import { collection, doc, getDocs, query, updateDoc, where } from '@firebase/firestore';
+import { useRouter } from 'vue-router';
 
-  const { sendToParticipants } = useNotifications();
-  const { user } = getUser()
+  const lat = ref(53);
+  const lng = ref(-2);
 
-  const addNotif = () => {
-    if(!user.value?.uid) return;
+  const { user } = getUser();
+  const router = useRouter();
 
-    sendToParticipants({
-        type: NotificationsType.event_create,
-        content: `This is a test, don't worry`,
-        link: `/events/trJNLbUy9E3ebNguBeOC`
-      }, [doc(projectStore, 'users', user.value.uid),]
-      );
-  }
+  const renderMap = async () => {
+    const mapEl = document.getElementById('map');
+    if(!mapEl) return;
 
+    console.log('mapEl : OK');
 
+    const map = new google.maps.Map(mapEl, {
+      center: { lat: lat.value, lng: lng.value },
+      zoom: 10,
+      maxZoom: 20, 
+      minZoom: 3,
+      streetViewControl: false,
+    })
 
+    let marker = new google.maps.Marker({
+      position: {
+        lat: lat.value,
+        lng: lng.value,
+      },
+      map
+    })
+
+  ;}
+
+  onMounted(() => {
+    if(navigator.geolocation) {
+      console.log('geolocalisation : OK')
+      navigator.geolocation.getCurrentPosition(async(pos) => {
+        lat.value = pos.coords.latitude;
+        lng.value = pos.coords.longitude;
+
+        console.log(`lat : ${lat.value} ; lng : ${lng.value}`)
+        renderMap();
+      }, (err) => {
+        console.log(err.message)
+        renderMap();
+      }, { maximumAge: 60000, timeout: 3000 })
+    } 
+  }) 
+  */ 
 </script>
+
+<style>
+.google-map {
+  width: 100%;
+  height: 90%;
+  margin: 0 auto;
+  background-color: #FFF;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+</style>

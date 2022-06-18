@@ -40,8 +40,9 @@ import useDocument from "../useDocument";
 
     }
 
-    if(!result.user.photoURL) {
+    if(result.user.photoURL) {
       const { updateDocument } = useDocument('users', result.user.uid);
+      
       await updateDocument({ photoURL: result.user.photoURL })
     }
 

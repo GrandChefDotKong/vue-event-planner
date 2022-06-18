@@ -41,7 +41,7 @@ import useNotifications from '@/composables/useNotifications';
     
     if(!user.value) return;
 
-    const { updateDocument } = useDocument('users', user.value.uid);
+    const { updateDocument } = useDocument('users', user.value.id);
     const currentIndex = user.value.notifications.indexOf(notif);
 
     const newNotifications: Notifications[] = 
@@ -58,7 +58,7 @@ const handleDeleteAll = async () => {
   
   if(!user.value) return;
 
-  const { updateDocument } = useDocument('users', user.value.uid);
+  const { updateDocument } = useDocument('users', user.value.id);
   
   await updateDocument({ notifications: [] });
 

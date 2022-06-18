@@ -25,7 +25,7 @@ const setUser = async(id: string) => {
         return;
       }
 
-      user.value = { ...snap.data(), uid: snap.id } as User;
+      user.value = { ...snap.data(), id: snap.id } as User;
       
       error.value = null;
 

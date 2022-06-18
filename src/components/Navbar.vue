@@ -1,8 +1,11 @@
 <template>
   <div class="w-screen h-fit m-0 py-1 rounded-b-lg bg-cyan text-white">
     <nav class="w-full flex flex-row justify-between py-2 text-xs">
-      <button v-if="user" class="ml-6" @click="handleClick">
+      <button v-if="user" id="notice" class="notif-btn ml-6" @click="handleClick">
         <img class="h-8 w-8 mx-auto" src="@/assets/bell.svg" alt="notifications">Notice
+        <span v-if="user.notifications.length"
+        class="notif bg-red-500"
+        >{{ user.notifications.length }}</span>
       </button>
       <router-link v-if="user" :to="{ name: 'home' }" class="w-fit">
         <img class="h-8 w-8 mx-auto" src="@/assets/calendar.svg" alt="logo">Home
@@ -27,10 +30,10 @@
   :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
     <div id="navbar" v-if="user" class="flex-grow flex bg-cyan flex-col justify-between pb-28 items-center text-white">
       <h3 class="text-2xl w-full text-center bg-white text-cyan">Menu</h3>
-      <router-link class="" :to="{ name: 'user-events', params: { id: user.uid } }">
+      <router-link class="" :to="{ name: 'user-profile' }">
         <img class="h-8 w-8 rounded-xl mx-auto" src="@/assets/user.svg" alt="user">My Page
       </router-link>
-      <router-link class="" :to="{ name: 'group', params: { id: user.uid } }">
+      <router-link class="" :to="{ name: 'group', params: { id: user.id } }">
         <img class="h-8 w-8 mx-auto" src="@/assets/group.svg" alt="user">Group Info
       </router-link>
       <router-link :to="{ name: 'create-event' }">
@@ -50,7 +53,6 @@ import useSignout from "@/composables/auth/useSignout";
 import getUser from "@/composables/auth/getUser";
 import { useRouter } from "vue-router";
 import { watch, ref } from "vue";
-
 
   const { error, signout, isPending } = useSignout();
   const { user } = getUser();
@@ -83,4 +85,16 @@ import { watch, ref } from "vue";
 </script>
 
 <style scoped>
+.notif-btn {
+  position: relative;
+}
+.notif {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  border-radius: 50%;
+  padding: 1px 3px;
+}
 </style>
+
+

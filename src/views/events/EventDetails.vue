@@ -15,12 +15,13 @@
       <h3 class="text-primary w-fit ml-2">Participants :</h3>
       <div class="h-fit p-4 rounded-2xl bg-primary_bg flex flex-row gap-2 
       justify-start items-start overflow-x-auto" v-if="participants.length">
-        <div class="w-fit min-w-[4rem] h-full flex flex-col items-center rounded-md shadow-md bg-white 
+        <router-link :to="{ name: 'user-profile', params: { id: member.id } }"
+        class="w-fit min-w-[4rem] h-full flex flex-col items-center rounded-md shadow-md bg-white 
         border border-primary text-primary p-2" v-for="member in participants">
           <img class="h-9 w-9 rounded-lg" v-if="member.photoURL" :src="member.photoURL" alt="avatar">  
           <img class="w-auto h-9 rounded-lg" v-else src="@/assets/default-avatar.svg" alt="avatar">  
           <span class="text-center my-auto text-sm h-fit w-full">{{ member.displayName }}</span>
-        </div>
+        </router-link>
       </div>
       <div v-else>No participants</div>
       <div class="mx-auto w-fit m-2">
@@ -39,21 +40,26 @@
 </template>
 
 <script setup lang="ts">
-import { getDocument } from '@/composables/getDocument';
+import { getSnapDocument } from '@/composables/getDocument';
 import useDocument from '@/composables/useDocument';
 import getUser from '@/composables/auth/getUser';
 import Event from '@/interface/Event';
 import Chatroom from '@/components/chat/Chatroom.vue';
 import { computed, Ref, ref, watch } from 'vue';
 import User from '@/interface/User';
-import { doc,getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { projectStore } from '@/firebase/config';
 import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
 
   const props = defineProps<{ id: string }>();
-  
-  const { document: event, error }: { document: Ref<Event>, error: Ref } = getDocument('events', props.id);
+
+  const event = ref<Event | null>(null);
+
+  getSnapDocument('events', props.id).then((res) => {
+    event.value = res.document.value as Event;
+  });
+
   const { updateDocument } = useDocument('events', props.id);
   const { sendToParticipants } = useNotifications();
 
@@ -63,8 +69,8 @@ import { NotificationsType } from '@/interface/Notifications';
     if(!user.value || !participants.value.length) return false;
 
     return participants.value.some((participant) => {
-      if(user.value?.uid) {
-        return participant.uid === user.value.uid;
+      if(user.value?.id) {
+        return participant.id === user.value.id;
       }
     })
   })
@@ -74,14 +80,14 @@ import { NotificationsType } from '@/interface/Notifications';
   watch(event, () => {
     participants.value = [];
 
-    if(!event.value.participants.length) return;
+    if(!event.value?.participants.length) return;
 
     event.value.participants.forEach(async(userRef) => {
     //  const { document: user }: { document: Ref<User> } = await getDocumentWithRef(userRef);
       const userSnap = await getDoc(userRef);
       if(userSnap.exists()) {
         
-        participants.value.push({ ...userSnap.data(), uid: userSnap.id  } as User);
+        participants.value.push({ ...userSnap.data(), id: userSnap.id  } as User);
       }
     })
   })
@@ -96,9 +102,8 @@ import { NotificationsType } from '@/interface/Notifications';
     }, event.value.participants);
 
     await updateDocument({ 
-      participants: [...event.value.participants, doc(projectStore,'users', user.value.uid)]
+      participants: [...event.value.participants, doc(projectStore,'users', user.value.id)]
     });
-
   }
 
   const handleInterested = () => {
@@ -112,7 +117,7 @@ import { NotificationsType } from '@/interface/Notifications';
 
     const newPraticipants = event.value.participants.filter(ref => {
       if(user.value) {
-        return ref.path !== `users/${user.value.uid}`
+        return ref.path !== `users/${user.value.id}`
       }
     });
   

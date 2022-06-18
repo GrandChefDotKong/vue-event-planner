@@ -8,7 +8,7 @@ interface User {
     photoURL: string | null,
     filePath?: string,
     notifications: Notifications[],
-    uid: string
+    id: string
 }
 
 export default User;

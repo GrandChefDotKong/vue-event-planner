@@ -2,7 +2,7 @@ import { ref, watchEffect } from 'vue';
 import { projectStore } from '../firebase/config';
 import { doc, collection, onSnapshot, DocumentReference, getDoc } from 'firebase/firestore';
 
-export const getDocument = (collectionName: string, id: string) => {
+export const getDocument = async (collectionName: string, id: string) => {
 
   const document = ref<any>(null);
   const error = ref<string | null>(null);
@@ -30,6 +30,26 @@ export const getDocument = (collectionName: string, id: string) => {
   })
 
   return { document, error };
+}
+
+export const getSnapDocument = async (collectionName: string, id: string) => {
+
+  const document = ref<any>(null);
+  const docRef = doc(collection(projectStore, collectionName), id); 
+
+  try {
+    
+    const docSnap = await getDoc(docRef);
+    if(docSnap.exists()) {
+      document.value = { ...docSnap.data(), id: docSnap.id};
+    }
+    
+  } catch (err: any) {
+    console.log(err.message);
+    document.value = null;
+  }
+
+  return { document };
 }
 
 type GetExist = (collectionName: string, id: string) => Promise<boolean>
@@ -62,7 +82,7 @@ export const getDocumentWithRef = async (docRef: DocumentReference) => {
     
     const docSnap = await getDoc(docRef);
     if(docSnap.exists()) {
-      document.value = { ...docSnap.data()};
+      document.value = { ...docSnap.data(), id: docSnap.id};
       error.value = null;
     }
     

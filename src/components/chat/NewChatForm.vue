@@ -16,13 +16,12 @@
 </template>
 
 <script setup lang="ts">
-
 import { Ref, ref } from 'vue';
 import { timestamp } from '@/firebase/config';
 import getUser from '@/composables/auth/getUser';
 import useDocument from '@/composables/useDocument';
 import Message from '@/interface/Message';
-import { getDocument } from '@/composables/getDocument';
+import { getSnapDocument } from '@/composables/getDocument';
 import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
 import Event from '@/interface/Event';
@@ -32,7 +31,12 @@ import Event from '@/interface/Event';
   const message = ref('');
   const { user } = getUser();
   const { error, updateDocument } = useDocument('chats', props.id);
-  const { document: event }: { document: Ref<Event> }  = getDocument('events', props.id);
+  const event = ref<Event | null>(null);
+
+  getSnapDocument('events', props.id).then((res) => {
+    event.value = res.document.value as Event;
+  });
+
   const { sendToParticipants } = useNotifications();
 
   const handleSubmit = async () => {
@@ -42,36 +46,23 @@ import Event from '@/interface/Event';
     const newMessage: Message = {
         message: message.value,
         userName: user.value.displayName,
-        userId: user.value.uid,
+        userId: user.value.id,
         createdAt: timestamp.now()
     }
 
     await updateDocument({ messages: [...props.document.messages, newMessage] });
 
-    if(!error.value) {
+    if(!error.value || event.value) {
       sendToParticipants({
         type: NotificationsType.chat_new,
-        content: `${user.value.displayName} posted a message in ${event.value.title}`,
-        link: `/events/${event.value.id}`,
-      }, event.value.participants)
+        content: `${user.value.displayName} posted a message in ${event.value?.title}`,
+        link: `/events/${event.value?.id}`,
+      }, event.value?.participants || [])
 
       message.value = '';
     }
   }
 </script>
+
 <style scoped>
-  form {
-    margin: 10px;
-  }
-  textarea {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 6px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 20px;
-    font-family: inherit;
-    outline: none;
-  }
 </style>
