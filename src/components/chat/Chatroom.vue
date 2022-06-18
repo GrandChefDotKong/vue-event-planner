@@ -12,35 +12,11 @@ import { ref, Ref, watch, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import NewChatForm from '@/components/chat/NewChatForm.vue';
 import ChatWindow from '@/components/chat/ChatWindow.vue';
-import { projectStore } from '@/firebase/config';
-import { doc, collection, onSnapshot } from 'firebase/firestore';
-  
+import { getDocument } from '@/composables/getDocument';
+
   const props = defineProps<{ id: string }>();
 
-  const chat = ref<any>(null);
-  const error = ref<string | null>(null);
-
-  const docRef = doc(collection(projectStore, 'chats'), props.id); 
-
-  const unsub = onSnapshot(docRef,
-    (snap) => {
-      if(!snap.data()) {
-        error.value = 'That document does not exist :/';
-        return;
-      }
-
-      chat.value = { ...snap.data(), id: snap.id };
-      error.value = null;
-
-    }, (err) => {
-      console.log(err.message);
-      error.value = 'Coul not fetch data from the server :/';
-      chat.value = null;
-  });
-
-  watchEffect((onInvalidate) => {
-    onInvalidate(() => unsub())
-  });
+  const { document: chat } = getDocument('chats', props.id)
 
   const { user } = getUser();
   const router = useRouter();

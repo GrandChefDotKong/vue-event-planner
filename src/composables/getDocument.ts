@@ -2,7 +2,7 @@ import { ref, watchEffect } from 'vue';
 import { projectStore } from '../firebase/config';
 import { doc, collection, onSnapshot, DocumentReference, getDoc } from 'firebase/firestore';
 
-export const getDocument = async (collectionName: string, id: string) => {
+export const getDocument = (collectionName: string, id: string) => {
 
   const document = ref<any>(null);
   const error = ref<string | null>(null);

@@ -72,7 +72,7 @@ import { useRouter } from 'vue-router';
   const handleSubmit = async () => {
     
     if(file.value && user.value) {
-      await uploadImage(file.value, user.value.uid);
+      await uploadImage(file.value, user.value.id);
       if(!url.value ||  !filePath.value) return;
     }
 

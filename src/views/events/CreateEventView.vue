@@ -56,8 +56,8 @@ import { Notifications, NotificationsType } from '@/interface/Notifications';
       //imageUrl: url.value,
       //filePath: filePath.value,
       location: location,
-      participants: [doc(projectStore, 'users', user.value.uid)],
-      creatorId: user.value.uid,
+      participants: [doc(projectStore, 'users', user.value.id)],
+      creatorId: user.value.id,
       creatorName: user.value.displayName,
       dates: dates,
     });
@@ -75,7 +75,7 @@ import { Notifications, NotificationsType } from '@/interface/Notifications';
         messages: [{
           createdAt: timestamp.now(),
           message: 'Welcome to the chat',
-          userId: user.value.uid,
+          userId: user.value.id,
           userName: user.value.displayName,
         }],
       }, res.id)

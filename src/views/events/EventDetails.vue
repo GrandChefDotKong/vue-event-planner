@@ -40,25 +40,21 @@
 </template>
 
 <script setup lang="ts">
-import { getSnapDocument } from '@/composables/getDocument';
+import { getDocument }  from '@/composables/getDocument';
 import useDocument from '@/composables/useDocument';
 import getUser from '@/composables/auth/getUser';
-import Event from '@/interface/Event';
 import Chatroom from '@/components/chat/Chatroom.vue';
 import { computed, Ref, ref, watch } from 'vue';
 import User from '@/interface/User';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, DocumentReference, getDoc } from 'firebase/firestore';
 import { projectStore } from '@/firebase/config';
 import useNotifications from '@/composables/useNotifications';
 import { NotificationsType } from '@/interface/Notifications';
 
+
   const props = defineProps<{ id: string }>();
 
-  const event = ref<Event | null>(null);
-
-  getSnapDocument('events', props.id).then((res) => {
-    event.value = res.document.value as Event;
-  });
+  const { document: event } = getDocument('events', props.id);
 
   const { updateDocument } = useDocument('events', props.id);
   const { sendToParticipants } = useNotifications();
@@ -82,7 +78,7 @@ import { NotificationsType } from '@/interface/Notifications';
 
     if(!event.value?.participants.length) return;
 
-    event.value.participants.forEach(async(userRef) => {
+    event.value.participants.forEach(async(userRef: DocumentReference) => {
     //  const { document: user }: { document: Ref<User> } = await getDocumentWithRef(userRef);
       const userSnap = await getDoc(userRef);
       if(userSnap.exists()) {
@@ -115,7 +111,7 @@ import { NotificationsType } from '@/interface/Notifications';
 
     if(!isParticipating.value) return;
 
-    const newPraticipants = event.value.participants.filter(ref => {
+    const newPraticipants = event.value.participants.filter((ref: DocumentReference) => {
       if(user.value) {
         return ref.path !== `users/${user.value.id}`
       }

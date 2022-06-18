@@ -1,5 +1,5 @@
 <template>
-  <form class="self-center p-0 shadow-md rounded-lg w-full flex flex-row 
+  <form class="self-center mt-1 p-0 shadow-md rounded-lg w-full flex flex-row 
   justify-around ">
     <input
       type="text" 
