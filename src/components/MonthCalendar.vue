@@ -72,7 +72,7 @@
       <div class="text-center text-primary" v-for="day in weekDay" :key="day">
         {{ day }}
       </div>
-      <div id="monthId" :style="`grid-column: 1 / ${firstDay};`">
+      <div id="monthId">
       </div>
       <div class="m-1" v-for="day in month.getDate()" :key="day">
         <h3 id="today" class="bg-magenta text-white font-bold border border-primary text-lg text-center"
@@ -108,7 +108,7 @@
 import getUser from '@/composables/auth/getUser';
 import Event from '@/interface/Event';
 import { computed } from '@vue/reactivity';
-import { onUpdated, ref, watch } from 'vue';
+import { onMounted, onUpdated, ref, watch } from 'vue';
 
   const { user } = getUser();
 
@@ -135,9 +135,23 @@ import { onUpdated, ref, watch } from 'vue';
     return weekDay;
   })
 
+  onMounted(() => {
+    let monthEl = document.getElementById('monthId');
 
-  const firstDay = new Date(month.value.getFullYear(), 
+    if(!monthEl || !month.value) return;
+
+    const spacing = new Date(month.value.getFullYear(), 
     month.value.getMonth(), 1).getDay();
+
+    if(spacing === 0) {
+      monthEl.style.display = 'none';
+    } else {
+      monthEl.style.display = 'initial';
+    }
+
+    monthEl.className = ``;
+    monthEl.style.gridColumn = `1 / span ${spacing}`;
+  })
 
   watch(month,() => {
     let monthEl = document.getElementById('monthId');
