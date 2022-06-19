@@ -72,7 +72,7 @@
       <div class="text-center text-primary" v-for="day in weekDay" :key="day">
         {{ day }}
       </div>
-      <div id="monthId" :class="`col-span-${firstDay}`">
+      <div id="monthId" :style="`grid-column: 1 / ${firstDay};`">
       </div>
       <div class="m-1" v-for="day in month.getDate()" :key="day">
         <h3 id="today" class="bg-magenta text-white font-bold border border-primary text-lg text-center"
@@ -147,15 +147,14 @@ import { onUpdated, ref, watch } from 'vue';
     const spacing = new Date(month.value.getFullYear(), 
     month.value.getMonth(), 1).getDay();
 
-    console.log(spacing)
-
     if(spacing === 0) {
       monthEl.style.display = 'none';
     } else {
       monthEl.style.display = 'initial';
     }
 
-    monthEl.className = `col-span-${spacing}`;
+    monthEl.className = ``;
+    monthEl.style.gridColumn = `1 / span ${spacing}`;
   });
 
 
